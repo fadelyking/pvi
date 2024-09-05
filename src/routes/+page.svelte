@@ -1,8 +1,10 @@
 <script>
     import "../app.css";
+    import Country from "$lib/components/Country.svelte";
 </script>
-<slot />
-<h1 class=" text-4xl">Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+
+<Country><span slot="country">Israel</span></Country>
+<Country><span slot="country">Palestine</span></Country>
+
 
 
