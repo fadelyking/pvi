@@ -26,14 +26,14 @@
 </script>
 
 <div class="country">
-	<div class=" text-white text-3xl">{countryName.toUpperCase()}</div>
+	<div class=" text-white text-3xl">{countryName}</div>
 	{#if countryName === "Israel"}
-		<Il size={120} />
-		<Button on:click={incrementIsrael} />
+		<Il size={140} class="flag" />
+		<Button on:click={incrementIsrael} color="blue" />
 		<Clicks clicks={israelValue} />
 	{:else}
-		<Ps size={120} />
-		<Button on:click={incrementPalestine} />
+		<Ps size={140} class="flag" />
+		<Button on:click={incrementPalestine} color="green" />
 		<Clicks clicks={palestineValue} />
 	{/if}
 </div>
@@ -45,5 +45,9 @@
 		gap: 30px;
 		padding: 20px;
 		align-items: center;
+	}
+
+	.flag {
+		border-radius: 90px;
 	}
 </style>
