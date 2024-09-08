@@ -13,7 +13,7 @@
 		@apply bg-[#003840];
 		@apply antialiased;
 		@apply text-white;
-		@apply overflow-auto;
+		@apply overflow-x-hidden;
 	}
 }
 
