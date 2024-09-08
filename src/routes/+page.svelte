@@ -3,8 +3,16 @@
     import Country from "$lib/components/Country.svelte";
 </script>
 
-<Country><span slot="country">Israel</span></Country>
-<Country><span slot="country">Palestine</span></Country>
+<div class="card">
+    
+<Country countryName="Palestine">Palestine</Country>
+<Country countryName="Israel">Israel</Country>
+</div>
 
 
 
+<style>
+.card {
+    display: flex;
+}
+</style>
