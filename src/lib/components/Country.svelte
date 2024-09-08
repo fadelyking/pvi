@@ -7,6 +7,7 @@
 
     let israelValue: number
     let palestineValue: number
+    let total = 0
 
     function incrementIsrael() {
         console.log("this is running israel")
@@ -29,7 +30,6 @@
 <div class="country">
     <div class=" text-white text-3xl">{countryName.toUpperCase()}</div>
     <img src='{countryName.toLowerCase()}.png' alt="Flag of the country">
-    
     {#if countryName === "Israel"}
     <Button on:click={incrementIsrael}/>
     <Clicks clicks={israelValue}/>
@@ -37,7 +37,6 @@
     <Button on:click={incrementPalestine}/>
     <Clicks clicks={palestineValue}/>
     {/if}
-
 </div>
 
 <style>

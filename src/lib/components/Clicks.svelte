@@ -1,5 +1,6 @@
 <script lang="ts">
     export let clicks: number = 0
+    
 </script>
 
 <div class="clicks-num">{clicks} Clicks</div>
