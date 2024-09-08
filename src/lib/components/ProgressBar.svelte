@@ -1,8 +1,12 @@
-<script>
+<script lang="ts">
+	import { israelClicks, palestineClicks } from "$lib/stores/clicks";
 	let progress = 50;
-	const progressStep = 1;
-	const maxProgress = 100;
-	const minProgress = 0;
+	const progressStep: number = 1;
+	const maxProgress: number = 100;
+	const minProgress: number = 0;
+
+	let israel: number;
+	let palestine: number;
 
 	export function clickLeft() {
 		if (progress > minProgress) {
@@ -34,13 +38,9 @@
 </script>
 
 <div class="game-container">
-	<button class="button" on:click={clickLeft}>Left</button>
-
 	<div class="progress-bar">
 		<div class="progress" style="--progress-width: {progress}%"></div>
 	</div>
-
-	<button class="button" on:click={clickRight}>Right</button>
 </div>
 
 <style>

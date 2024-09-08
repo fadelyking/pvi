@@ -39,7 +39,6 @@
 
 <style>
 	.country {
-		border: 5px solid red;
 		display: flex;
 		flex-direction: column;
 		gap: 30px;

@@ -5,29 +5,18 @@
 	import ProgressBar from "$lib/components/ProgressBar.svelte";
 </script>
 
-<div class="layout">
-	<div class="card">
-		<Country countryName="Palestine">Palestine</Country>
-	</div>
-	<div class="card-2">
-		<Country countryName="Israel">Israel</Country>
-	</div>
-	<div class="total-clicks">
-		<Country countryName="Palestine">Palestine</Country>
+<div class="h-full flex justify-center items-center">
+	<div class=" flex gap-32 items-center justify-center">
+		<div class="card">
+			<Country countryName="Palestine">Palestine</Country>
+		</div>
+
+		<div class="flex flex-col items-center justify-center gap-5">
+			<TotalClicks />
+			<ProgressBar />
+		</div>
+		<div class="card-2">
+			<Country countryName="Israel">Israel</Country>
+		</div>
 	</div>
 </div>
-
-<TotalClicks />
-<ProgressBar />
-
-<style>
-	.layout {
-		display: grid;
-		grid-template-columns: 12, minmax(12, 1fr);
-	}
-
-	.card {
-		display: flex;
-		grid-column: 3;
-	}
-</style>

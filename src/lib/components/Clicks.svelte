@@ -7,6 +7,6 @@
 <style>
 	.clicks-num {
 		color: white;
-		font-size: 60px;
+		font-size: 32px;
 	}
 </style>
