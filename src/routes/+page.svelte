@@ -3,6 +3,9 @@
 	import Country from "$lib/components/Country.svelte";
 	import TotalClicks from "$lib/components/TotalClicks.svelte";
 	import ProgressBar from "$lib/components/ProgressBar.svelte";
+
+	// TODOS:
+	// CHANGE THE INDEX OF THE CIRCLE DIVS SO THAT THEY DO NOT COVER ITEMS
 </script>
 
 <div class="h-full flex justify-center items-center">

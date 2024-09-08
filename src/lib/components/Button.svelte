@@ -5,7 +5,7 @@
 
 	export let color = "";
 
-	// todo:
+	// todos:
 	// GLOW EFFECT ON BUTTONS
 	// TRY TO REPLICATE FIGMA FILE BUTTON AS CLOSE AS POSSIBLE
 </script>
