@@ -5,24 +5,21 @@
 	const maxProgress: number = 100;
 	const minProgress: number = 0;
 
-	let israel: number;
-	let palestine: number;
-
-	export function clickLeft() {
+	function clickLeft() {
 		if (progress > minProgress) {
 			progress += progressStep;
 		}
 		checkWin();
 	}
 
-	export function clickRight() {
+	function clickRight() {
 		if (progress < maxProgress) {
 			progress -= progressStep;
 		}
 		checkWin();
 	}
 
-	export function checkWin() {
+	function checkWin() {
 		if (progress <= minProgress) {
 			alert("Right side wins!");
 			resetGame();
@@ -32,9 +29,16 @@
 		}
 	}
 
-	export function resetGame() {
+	function resetGame() {
 		progress = 50;
 	}
+
+	israelClicks.subscribe(() => {
+		clickRight();
+	});
+	palestineClicks.subscribe(() => {
+		clickLeft();
+	});
 </script>
 
 <div class="game-container">
