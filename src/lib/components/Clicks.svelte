@@ -1,4 +1,8 @@
-<div class="clicks-num"><slot>64,212</slot>Clicks</div>
+<script lang="ts">
+    export let clicks: number = 0
+</script>
+
+<div class="clicks-num">{clicks} Clicks</div>
 
 <style>
 .clicks-num {
