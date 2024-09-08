@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from "./Button.svelte";
 	import Clicks from "./Clicks.svelte";
-
+	import { Ps, Il } from "svelte-flag-icons";
 	export let countryName: string = "";
 	import { palestineClicks, israelClicks } from "$lib/stores/clicks";
 
@@ -27,11 +27,12 @@
 
 <div class="country">
 	<div class=" text-white text-3xl">{countryName.toUpperCase()}</div>
-	<img src="{countryName.toLowerCase()}.png" alt="Flag of the country" />
 	{#if countryName === "Israel"}
+		<Il size={120} />
 		<Button on:click={incrementIsrael} />
 		<Clicks clicks={israelValue} />
 	{:else}
+		<Ps size={120} />
 		<Button on:click={incrementPalestine} />
 		<Clicks clicks={palestineValue} />
 	{/if}
