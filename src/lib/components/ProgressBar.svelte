@@ -41,9 +41,12 @@
 	});
 </script>
 
-<div class="game-container">
+<div class="game-container drop-shadow-2xl">
 	<div class="progress-bar">
-		<div class="progress" style="--progress-width: {progress}%"></div>
+		<div
+			class="progress drop-shadow-2xl"
+			style="--progress-width: {progress}%"
+		></div>
 	</div>
 </div>
 
@@ -52,21 +55,29 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		background-color: #0e696a;
+		border-radius: 12px;
+		padding: 25px;
+		max-width: 90vw;
+		margin: 0 auto;
 	}
 
 	.progress-bar {
-		width: 300px;
-		height: 30px;
-		background-color: blue;
+		display: flex;
+		width: 50vw;
+		max-width: 600px;
+		height: 15px;
+		background-color: #004699;
 		position: relative;
+		overflow: hidden;
 		border-radius: 3em;
 	}
 
 	.progress {
-		background-color: green;
+		background-color: #02a676;
 		height: 100%;
 		border-radius: 3em;
 		width: var(--progress-width);
-		transition: width 0.3s ease-in-out;
+		transition: width 0.1s ease-in-out;
 	}
 </style>
