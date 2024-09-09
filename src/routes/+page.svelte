@@ -4,7 +4,8 @@
 	import TotalClicks from "$lib/components/TotalClicks.svelte";
 	import ProgressBar from "$lib/components/ProgressBar.svelte";
 	import { Ps, Il } from "svelte-flag-icons";
-
+	export let data;
+	console.log(data.clicks);
 	// TODOS:
 	// CHANGE THE INDEX OF THE CIRCLE DIVS SO THAT THEY DO NOT COVER ITEMS
 </script>
