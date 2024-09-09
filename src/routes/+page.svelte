@@ -3,24 +3,26 @@
 	import Country from "$lib/components/Country.svelte";
 	import TotalClicks from "$lib/components/TotalClicks.svelte";
 	import ProgressBar from "$lib/components/ProgressBar.svelte";
+	import { Ps, Il } from "svelte-flag-icons";
 
 	// TODOS:
 	// CHANGE THE INDEX OF THE CIRCLE DIVS SO THAT THEY DO NOT COVER ITEMS
 </script>
 
-<div class="h-full flex justify-center items-center">
-	<div class=" flex gap-32 items-center justify-center">
-		<div class="card">
-			<Country countryName="Palestine">Palestine</Country>
-		</div>
+<div class="grid h-screen place-items-center grid-cols-3 gap-32">
+	<div class="flex flex-col items-center">
+		<Ps size={128} />
+		<Country countryISO="PS" />
+	</div>
 
-		<div class="flex flex-col items-center justify-center gap-5 mb-36">
-			<TotalClicks />
-			<ProgressBar />
-		</div>
-		<div class="card-2">
-			<Country countryName="Israel">Israel</Country>
-		</div>
+	<div>
+		<TotalClicks />
+		<ProgressBar />
+	</div>
+
+	<div class="flex flex-col items-center">
+		<Il size={128} />
+		<Country countryISO="IL" />
 	</div>
 </div>
 

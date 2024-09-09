@@ -9,7 +9,7 @@
 
 <div class="clicks-num font-bold flex flex-col items-center justify-center">
 	<span class="mb-10">JOIN THE MOVEMENT!</span>
-	<span class="num px-3">{total}</span> Clicks
+	<span class="num px-3">{total}</span> clicks
 </div>
 
 <style>

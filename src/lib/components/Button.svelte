@@ -1,15 +1,10 @@
-<script>
-	// @ts-nocheck
-
-	import { GradientButton } from "flowbite-svelte";
-
-	export let color = "";
+<script lang="ts">
+	export let classNames = "";
+	export let title = "Click Me";
 
 	// todos:
 	// GLOW EFFECT ON BUTTONS
 	// TRY TO REPLICATE FIGMA FILE BUTTON AS CLOSE AS POSSIBLE
 </script>
 
-<GradientButton on:click {color} class=" px-12 py-3 rounded-xl"
-	>Click</GradientButton
->
+<button on:click class="{classNames} p-2 rounded-xl w-full">{title}</button>

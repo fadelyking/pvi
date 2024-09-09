@@ -2,7 +2,7 @@
 	export let clicks: number = 0;
 </script>
 
-<div class="clicks-num">{clicks} Clicks</div>
+<div class="text-white text-4xl">{clicks} Clicks</div>
 
 <style>
 	.clicks-num {
