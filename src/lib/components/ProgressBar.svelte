@@ -57,8 +57,8 @@
 		align-items: center;
 		justify-content: space-between;
 		background-color: #0e696a;
-		border-radius: 12px;
-		padding: 25px;
+		border-radius: 0.75rem;
+		padding: 1.5625rem;
 		max-width: 90vw;
 		margin: 0 auto;
 	}
@@ -66,8 +66,8 @@
 	.progress-bar {
 		display: flex;
 		width: 50vw;
-		max-width: 600px;
-		height: 15px;
+		max-width: 37.5rem;
+		height: 0.9375rem;
 		background-color: #004699;
 		position: relative;
 		overflow: hidden;

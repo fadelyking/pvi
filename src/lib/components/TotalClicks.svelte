@@ -15,11 +15,11 @@
 <style>
 	.clicks-num {
 		color: white;
-		font-size: 50px;
+		font-size: 3.125rem;
 	}
 
 	.num {
 		background-color: #0e696a;
-		border-radius: 12px;
+		border-radius: 0.75rem;
 	}
 </style>

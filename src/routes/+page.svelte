@@ -31,43 +31,43 @@
 
 <style>
 	.color {
-		height: 800px;
-		width: 800px;
+		height: 50rem;
+		width: 50rem;
 		background-image: radial-gradient(closest-side, #14ac81, #003840);
 		opacity: 50%;
 		position: absolute;
-		top: -600px;
+		top: -37.5rem;
 		left: 15%;
 	}
 
 	.color-2 {
-		height: 700px;
-		width: 700px;
+		height: 43.75rem;
+		width: 43.75rem;
 		background-image: radial-gradient(closest-side, #14ac81, #003840);
 		opacity: 50%;
 		position: absolute;
-		top: 0px;
-		left: -600px;
+		top: 0rem;
+		left: -37.5rem;
 		overflow: hidden;
 	}
 
 	.color-3 {
-		height: 700px;
-		width: 700px;
+		height: 43.75rem;
+		width: 43.75rem;
 		background-image: radial-gradient(closest-side, white, #003840);
 		opacity: 30%;
 		position: absolute;
-		top: -500px;
-		right: -400px;
+		top: -31.25rem;
+		right: -25rem;
 	}
 
 	.color-4 {
-		height: 700px;
-		width: 700px;
+		height: 43.75rem;
+		width: 43.75rem;
 		background-image: radial-gradient(closest-side, white, #003840);
 		opacity: 20%;
 		position: absolute;
-		top: 200px;
-		right: -600px;
+		top: 12.5rem;
+		right: -37.5rem;
 	}
 </style>

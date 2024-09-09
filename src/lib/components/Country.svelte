@@ -42,12 +42,12 @@
 	.country {
 		display: flex;
 		flex-direction: column;
-		gap: 30px;
-		padding: 20px;
+		gap: 1.875rem;
+		padding: 1.25rem;
 		align-items: center;
 	}
 
 	.flag {
-		border-radius: 90px;
+		border-radius: 5.625rem;
 	}
 </style>
