@@ -1,19 +1,29 @@
-<script>
+<script lang="ts">
 	import "../app.css";
 	import Country from "$lib/components/Country.svelte";
 	import TotalClicks from "$lib/components/TotalClicks.svelte";
 	import ProgressBar from "$lib/components/ProgressBar.svelte";
 	import { Ps, Il } from "svelte-flag-icons";
-	export let data;
-	console.log(data.clicks);
+	import type { PageData } from './$types';
+	export let data: PageData;
+	console.log(data);
 	// TODOS:
 	// CHANGE THE INDEX OF THE CIRCLE DIVS SO THAT THEY DO NOT COVER ITEMS
+
+	import { clickStores, incrementByISO } from "$lib/stores/clicks";
+    import Button from "$lib/components/Button.svelte";
+    import { enhance } from "$app/forms";
 </script>
 
 <div class="grid h-screen place-items-center grid-cols-3 gap-32">
 	<div class="flex flex-col items-center">
 		<Ps size={128} />
 		<Country countryISO="PS" />
+		
+		<form method="POST" action="?/click" use:enhance>
+			<input type="hidden" name="iso" value="PS" />
+			<Button on:click={() => incrementByISO("PS")}></Button>
+		</form>
 	</div>
 
 	<div>
@@ -24,6 +34,10 @@
 	<div class="flex flex-col items-center">
 		<Il size={128} />
 		<Country countryISO="IL" />
+		<form method="POST" action="?/click" use:enhance>
+			<input type="hidden" name="iso" value="IL" />
+			<Button on:click={() => incrementByISO("IL")}></Button>
+		</form>
 	</div>
 </div>
 

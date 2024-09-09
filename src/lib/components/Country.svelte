@@ -9,14 +9,9 @@
 
 	let countryClicks: any;
 	$: countryClicks = clickStores[countryISO];
-
-	function click() {
-		incrementByISO(countryISO);
-	}
 </script>
 
 <div>
 	<h3 class="text-white font-bold text-3xl">{regionName.of(countryISO)}</h3>
 	<p class="text-center bg-black">{$countryClicks} click{$countryClicks > 1 ? "s" : ""}</p>
-	<Button on:click={() => click()}></Button>
 </div>
