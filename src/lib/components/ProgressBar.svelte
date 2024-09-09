@@ -2,7 +2,7 @@
 	// TODO: Find a fair progress ratio and a good max progress number
 	import { IL, PS } from "$lib/stores/clicks";
 	let progress = 50;
-	const progressStep: number = 0.1;
+	const progressStep: number = 0.01;
 	const maxProgress: number = 100;
 	const minProgress: number = 0;
 
