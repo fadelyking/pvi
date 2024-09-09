@@ -4,25 +4,28 @@
 	import TotalClicks from "$lib/components/TotalClicks.svelte";
 	import ProgressBar from "$lib/components/ProgressBar.svelte";
 	import { Ps, Il } from "svelte-flag-icons";
-	import type { PageData } from './$types';
+	import type { PageData } from "./$types";
 	export let data: PageData;
 	console.log(data);
 	// TODOS:
 	// CHANGE THE INDEX OF THE CIRCLE DIVS SO THAT THEY DO NOT COVER ITEMS
 
 	import { clickStores, incrementByISO } from "$lib/stores/clicks";
-    import Button from "$lib/components/Button.svelte";
-    import { enhance } from "$app/forms";
+	import Button from "$lib/components/Button.svelte";
+	import { enhance } from "$app/forms";
 </script>
 
 <div class="grid h-screen place-items-center grid-cols-3 gap-32">
 	<div class="flex flex-col items-center">
 		<Ps size={128} />
 		<Country countryISO="PS" />
-		
+
 		<form method="POST" action="?/click" use:enhance>
 			<input type="hidden" name="iso" value="PS" />
-			<Button on:click={() => incrementByISO("PS")}></Button>
+			<Button
+				classNames="bg-gradient-to-br from-green-400 px-12 my-4 hover:shadow-xl transition hover:saturate-150 active:scale-90"
+				on:click={() => incrementByISO("PS")}
+			/>
 		</form>
 	</div>
 
@@ -36,7 +39,10 @@
 		<Country countryISO="IL" />
 		<form method="POST" action="?/click" use:enhance>
 			<input type="hidden" name="iso" value="IL" />
-			<Button on:click={() => incrementByISO("IL")}></Button>
+			<Button
+				classNames="bg-gradient-to-br from-blue-700 px-12 my-4 hover:shadow-xl transition hover:saturate-150 active:scale-90"
+				on:click={() => incrementByISO("IL")}
+			/>
 		</form>
 	</div>
 </div>
