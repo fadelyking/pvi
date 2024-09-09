@@ -7,4 +7,6 @@
 	// TRY TO REPLICATE FIGMA FILE BUTTON AS CLOSE AS POSSIBLE
 </script>
 
-<button on:click class="{classNames} p-2 rounded-xl w-full">{title}</button>
+<button on:click type="submit" class="{classNames} p-2 rounded-xl w-full"
+	>{title}</button
+>
