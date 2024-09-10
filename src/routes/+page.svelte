@@ -5,20 +5,23 @@
 	import ProgressBar from "$lib/components/ProgressBar.svelte";
 	import { Ps, Il } from "svelte-flag-icons";
 	import type { PageData } from "./$types";
-	export let data: PageData;
-	console.log(data);
-	// TODOS:
-	// CHANGE THE INDEX OF THE CIRCLE DIVS SO THAT THEY DO NOT COVER ITEMS
-
-	import { clickStores, incrementByISO } from "$lib/stores/clicks";
+	import { incrementByISO } from "$lib/stores/clicks";
 	import Button from "$lib/components/Button.svelte";
 	import { enhance } from "$app/forms";
+
+	export let data: PageData;
+
+	export let totalClicked = data.palestine.length + data.israel.length;
+	console.log(totalClicked);
+
+	// TODOS:
+	// CHANGE THE INDEX OF THE CIRCLE DIVS SO THAT THEY DO NOT COVER ITEMS
 </script>
 
 <div class="grid h-screen place-items-center grid-cols-3 gap-32">
 	<div class="flex flex-col items-center">
 		<Ps size={128} />
-		<Country countryISO="PS" />
+		<Country countryISO="PS" clicks={data.palestine.length} />
 
 		<form method="POST" action="?/click" use:enhance>
 			<input type="hidden" name="iso" value="PS" />
@@ -30,13 +33,14 @@
 	</div>
 
 	<div>
-		<TotalClicks />
+		{#key totalClicked}<TotalClicks totalClicks={totalClicked} />
+		{/key}
 		<ProgressBar />
 	</div>
 
 	<div class="flex flex-col items-center">
 		<Il size={128} />
-		<Country countryISO="IL" />
+		<Country countryISO="IL" clicks={data.israel.length} />
 		<form method="POST" action="?/click" use:enhance>
 			<input type="hidden" name="iso" value="IL" />
 			<Button
