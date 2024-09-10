@@ -18,7 +18,9 @@
 	// CHANGE THE INDEX OF THE CIRCLE DIVS SO THAT THEY DO NOT COVER ITEMS
 </script>
 
-<div class="grid h-screen place-items-center grid-rows-3 md:grid-rows-none md:grid-cols-3 gap-0 md:gap-32">
+<div
+	class="grid h-screen place-items-center grid-rows-3 md:grid-rows-none md:grid-cols-3 gap-0 md:gap-32"
+>
 	<Form countryISO="PS" clicks={data.palestine.length} />
 
 	<div class="flex flex-col items-center gap-3">
@@ -26,7 +28,10 @@
 			>{Intl.NumberFormat(undefined).format(totalClicked)} clicks</span
 		>
 		<br />
-		<ProgressBar />
+		<ProgressBar
+			palestineProgress={data.palestine.length}
+			israelProgress={data.israel.length}
+		/>
 	</div>
 
 	<Form countryISO="IL" clicks={data.israel.length} />
