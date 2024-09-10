@@ -2,6 +2,8 @@
 	// TODO: Find a fair progress ratio and a good max progress number
 	// TODO: Connect the DB values with progress
 	import { IL, PS } from "$lib/stores/clicks";
+	export let palestineProgress: number;
+	export let israelProgress: number;
 	let progress = 50;
 	const progressStep: number = 0.1;
 	const maxProgress: number = 100;
@@ -9,24 +11,22 @@
 
 	function clickLeft() {
 		if (progress > minProgress) {
-			progress += progressStep;
+			progress += palestineProgress;
 		}
 		checkWin();
 	}
 
 	function clickRight() {
 		if (progress < maxProgress) {
-			progress -= progressStep;
+			progress -= israelProgress;
 		}
 		checkWin();
 	}
 
 	function checkWin() {
 		if (progress <= minProgress) {
-			alert("Right side wins!");
 			resetGame();
 		} else if (progress >= maxProgress) {
-			alert("Left side wins!");
 			resetGame();
 		}
 	}
