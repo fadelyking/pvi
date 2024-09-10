@@ -10,7 +10,7 @@
 
 <div>
 	<h3 class="text-white font-bold text-3xl">{countryISO === "PS" ? "Palestine" : regionName.of(countryISO)}</h3>
-	<p class="text-center bg-black">
-		{clicks} click{$countryClicks > 1 ? "s" : ""}
+	<p class="text-center italic font-light text-xl">
+		{clicks} clicks
 	</p>
 </div>

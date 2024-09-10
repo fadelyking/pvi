@@ -1,18 +1,17 @@
 <script lang="ts">
 	import "../app.css";
 	import Country from "$lib/components/Country.svelte";
-	import TotalClicks from "$lib/components/TotalClicks.svelte";
 	import ProgressBar from "$lib/components/ProgressBar.svelte";
 	import { Ps, Il } from "svelte-flag-icons";
-	import type { PageData } from "./$types";
+	import type { PageData/*, FormData*/ } from "./$types";
 	import { incrementByISO } from "$lib/stores/clicks";
 	import Button from "$lib/components/Button.svelte";
 	import { enhance } from "$app/forms";
 
 	export let data: PageData;
+	// export let form: FormData;
 
-	let totalClicked = data.palestine.length + data.israel.length;
-	console.log(totalClicked);
+	$: totalClicked = data.palestine.length + data.israel.length;
 
 	// TODOS:
 	// CHANGE THE INDEX OF THE CIRCLE DIVS SO THAT THEY DO NOT COVER ITEMS
@@ -32,9 +31,9 @@
 		</form>
 	</div>
 
-	<div>
-		{#key totalClicked}<TotalClicks totalClicks={totalClicked} />
-		{/key}
+	<div class="flex flex-col items-center gap-3">
+		<span class="text-center font-black text-5xl px-3">{Intl.NumberFormat(undefined).format(totalClicked)} clicks</span>
+		<br/>
 		<ProgressBar />
 	</div>
 
