@@ -1,15 +1,10 @@
 <script lang="ts">
-	import { totalClicks } from "$lib/stores/clicks";
-	let total: number;
-
-	totalClicks.subscribe((value) => {
-		total = value;
-	});
+	export let totalClicks: number;
 </script>
 
 <div class="clicks-num font-bold flex flex-col items-center justify-center">
 	<span class="mb-10">JOIN THE MOVEMENT!</span>
-	<span class="num px-3">{total}</span> clicks
+	<span class="num px-3">{totalClicks}</span> clicks
 </div>
 
 <style>
