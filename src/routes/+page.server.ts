@@ -1,12 +1,8 @@
 import { db } from "$lib/server/db";
 import { eq } from "drizzle-orm";
-import {
-	clicksTable,
-	type InsertClick,
-	type SelectClick,
-} from "$lib/server/schema";
+import { clicksTable } from "$lib/server/schema";
 
-import type { PageServerLoad, Actions } from "./$types";
+import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async () => {
 	return {
