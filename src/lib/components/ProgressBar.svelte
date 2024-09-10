@@ -1,8 +1,9 @@
 <script lang="ts">
 	// TODO: Find a fair progress ratio and a good max progress number
+	// TODO: Connect the DB values with progress
 	import { IL, PS } from "$lib/stores/clicks";
 	let progress = 50;
-	const progressStep: number = 0.01;
+	const progressStep: number = 0.1;
 	const maxProgress: number = 100;
 	const minProgress: number = 0;
 
