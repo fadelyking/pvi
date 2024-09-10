@@ -11,7 +11,7 @@
 
 	export let data: PageData;
 
-	export let totalClicked = data.palestine.length + data.israel.length;
+	let totalClicked = data.palestine.length + data.israel.length;
 	console.log(totalClicked);
 
 	// TODOS:
