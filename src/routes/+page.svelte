@@ -12,7 +12,7 @@
 	export let data: PageData;
 	// export let form: FormData;
 
-	$: totalClicked = data.palestine.length + data.israel.length;
+	$: totalClicked = data.clicks.length;
 
 	// TODOS:
 	// CHANGE THE INDEX OF THE CIRCLE DIVS SO THAT THEY DO NOT COVER ITEMS
