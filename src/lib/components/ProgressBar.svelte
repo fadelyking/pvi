@@ -1,46 +1,5 @@
 <script lang="ts">
-	// TODO: Find a fair progress ratio and a good max progress number
-	// TODO: Connect the DB values with progress
-	import { IL, PS } from "$lib/stores/clicks";
-	export let palestineProgress: number;
-	export let israelProgress: number;
-	let progress = 50;
-	const progressStep: number = 0.1;
-	const maxProgress: number = 100;
-	const minProgress: number = 0;
-
-	function clickLeft() {
-		if (progress > minProgress) {
-			progress += palestineProgress;
-		}
-		checkWin();
-	}
-
-	function clickRight() {
-		if (progress < maxProgress) {
-			progress -= israelProgress;
-		}
-		checkWin();
-	}
-
-	function checkWin() {
-		if (progress <= minProgress) {
-			resetGame();
-		} else if (progress >= maxProgress) {
-			resetGame();
-		}
-	}
-
-	function resetGame() {
-		progress = 50;
-	}
-
-	IL.subscribe(() => {
-		clickRight();
-	});
-	PS.subscribe(() => {
-		clickLeft();
-	});
+	export let progress: number;
 </script>
 
 <div class="game-container drop-shadow-2xl">
