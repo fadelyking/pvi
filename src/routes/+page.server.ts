@@ -1,6 +1,6 @@
 import { db } from "$lib/server/db";
 import { eq } from "drizzle-orm";
-import { clicksTable } from "$lib/server/schema";
+import { clicksTable, progressTable } from "$lib/server/schema";
 
 import type { PageServerLoad } from "./$types";
 
@@ -15,8 +15,18 @@ export const load: PageServerLoad = async () => {
 			.select()
 			.from(clicksTable)
 			.where(eq(clicksTable.country, "Palestine")),
+		progress: await db.select().from(progressTable),
 	};
 };
+
+const progressResult = await db.select().from(progressTable);
+
+let currentProgress = parseFloat(
+	progressResult[0]?.progress !== null ? progressResult[0].progress : "50"
+);
+
+console.log(typeof currentProgress);
+console.log(currentProgress);
 
 export const actions = {
 	click: async ({ request }) => {
@@ -34,6 +44,11 @@ export const actions = {
 					country: "Palestine",
 					created_at: new Date(),
 				});
+				currentProgress = Math.min(currentProgress + 0.1, 100);
+				await db.update(progressTable).set({
+					progress: currentProgress.toString(),
+					last_updated: new Date(),
+				});
 				return { success: true, message: "Palestine entry added" };
 			} catch (error) {
 				console.error("Database insert error: ", error);
@@ -44,6 +59,11 @@ export const actions = {
 				await db.insert(clicksTable).values({
 					country: "Israel",
 					created_at: new Date(),
+				});
+				currentProgress = Math.min(currentProgress - 0.1, 100);
+				await db.update(progressTable).set({
+					progress: currentProgress.toString(),
+					last_updated: new Date(),
 				});
 				return { success: true, message: "Palestine entry added" };
 			} catch (error) {
