@@ -1,38 +1,60 @@
-<div
-	class="pointer-events-auto bg-[#0e696a] rounded-lg shadow-lg max-w-sm mx-auto w-full p-4 md:p-6 pt-6 -mt-24"
->
-	<div class="flex flex-col items-center justify-center">
-		<span class="text-2xl font-black uppercase">Get Clicks Now </span>
-		<span class="mt-4 font-bold">1$ for 1000 Clicks</span>
+<script lang="ts">
+	$: selectedPackage = -1;
+
+	const packages = [
+		{
+			amount: 1000,
+			price: 1,
+		},
+		{
+			amount: 10000,
+			price: 10,
+		},
+		{
+			amount: 50000,
+			price: 50,
+		},
+		{
+			amount: 100000,
+			price: 100,
+		},
+	];
+</script>
+
+<div class="bg-[#0e696a] rounded-lg p-6 flex justify-center flex-col">
+	<h2 class="font-semibold">Boost your clicks with a donation below.</h2>
+	<small> Select the amount of clicks you want. </small>
+	<br />
+	<br />
+	<div class="flex flex-col gap-2 my-3">
+		{#each packages as pkg}
+			<button
+				class="transition border {selectedPackage === pkg.amount
+					? 'bg-[#02a676] border-white'
+					: 'bg-[#02a676]/50 border-transparent'} p-2 px-4 rounded-md"
+				on:click={() => (selectedPackage = pkg.amount)}
+			>
+				{pkg.amount.toLocaleString()} Clicks
+			</button>
+		{/each}
 	</div>
-	<form class="grid grid-cols-2 gap-2 mt-2">
-		<div class="flex flex-col gap-2">
-			<button class="form-button">1000 Clicks</button><button
-				class="form-button">10000 Clicks</button
-			>
-		</div>
-		<div class="flex flex-col gap-2">
-			<button class="form-button">50000 Clicks</button><button
-				class="form-button">100000 Clicks</button
-			>
-		</div>
-		<input
-			class="col-span-2 rounded-md text-black"
-			type="text"
-			maxlength="6"
-			name="other-amount"
-			placeholder="Other amount"
-		/>
-		<img
-			src="twig-divider.png"
-			alt="divider"
-			class="col-span-2 my-6 w-full"
-		/>
-		<button
-			class="col-span-2 px-6 py-4 bg-green-600 text-white font-black rounded-full mb-4"
-			type="submit">Next</button
-		>
-	</form>
+	<p class="text-center mb-3">or</p>
+	<input
+		class="col-span-2 rounded-md text-black"
+		type="text"
+		maxlength="6"
+		name="other-amount"
+		placeholder="Custom amount of Clicks"
+	/>
+
+	<button
+		disabled={selectedPackage === -1}
+		class="bg-[#02a676] mt-3 hover:saturate-150 transition p-2 px-4 rounded-md {selectedPackage ===
+		-1
+			? 'pointer-events-none opacity-50'
+			: ''}"
+		type="submit">Next</button
+	>
 </div>
 
 <style>
