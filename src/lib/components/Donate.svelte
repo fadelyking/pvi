@@ -19,9 +19,40 @@
 			price: 100,
 		},
 	];
+
+	const formFieldTwo = [
+		{
+			label: "Display Name",
+			name: "display-name",
+			placeholder: "Display Name",
+			type: "text",
+		},
+		{
+			label: "Email",
+			name: "email",
+			placeholder: "Email",
+			type: "text",
+		},
+		{
+			label: "Mobile Phone",
+			name: "mobile-phone",
+			placeholder: "Mobile Phone",
+			type: "text",
+			optionalText:
+				"optional; by entering a phone number, you consent to receive text messages",
+		},
+
+		{
+			label: "Message",
+			name: "message",
+			placeholder: "Message",
+			type: "text",
+			isTextarea: true,
+		},
+	];
 </script>
 
-<div class="bg-[#0e696a] rounded-lg p-6 flex justify-center flex-col">
+<div class="bg-[#0e696a] rounded-lg p-6 flex justify-center flex-col hidden">
 	<h2 class="font-semibold">Boost your clicks with a donation below.</h2>
 	<small> Select the amount of clicks you want. </small>
 	<br />
@@ -57,15 +88,73 @@
 	>
 </div>
 
-<style>
-	.form-button {
-		background-color: #02a676;
-		border-width: 1px;
-		border-color: #007369;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border-radius: 0.375rem;
-		height: 3rem;
-	}
-</style>
+<div class="bg-[#0e696a] rounded-lg p-6 flex flex-col justify-center hidden">
+	<h2 class="font-semibold mb-4">Details</h2>
+
+	{#each formFieldTwo as field}
+		<label class="mb-4">
+			<div class="font-bold uppercase opacity-80 text-xs">
+				{field.label}:
+			</div>
+
+			{#if field.isTextarea}
+				<textarea
+					class="w-full rounded-md text-black mt-1 h-24"
+					name={field.name}
+					placeholder={field.placeholder}
+				></textarea>
+			{:else}
+				<input
+					class="w-full rounded-md text-black mt-1"
+					type={field.type}
+					name={field.name}
+					placeholder={field.placeholder}
+				/>
+			{/if}
+
+			{#if field.optionalText}
+				<div class="text-sm text-white">{field.optionalText}</div>
+			{/if}
+		</label>
+	{/each}
+	<div>
+		<div class="mt-8">
+			<input
+				type="checkbox"
+				id="recentUpdates"
+				class="mr-2"
+				name="receive-update"
+			/>
+			<label for="recentUpdates" class="font-medium text-lg"
+				>YES! I want periodic updates on who is winning</label
+			>
+		</div>
+		<div>
+			<input type="checkbox" class="mr-2" id="anonymous" />
+			<label for="anonymous" class="font-medium text-lg"
+				>Please keep my donation anonymous!</label
+			>
+		</div>
+	</div>
+	<button
+		class="bg-[#02a676] mt-6 hover:saturate-150 transition p-2 px-4 rounded-md"
+		type="submit">Next</button
+	>
+	<button
+		class="text-white mt-2 font-semibold transition p-2 px-4 rounded-md"
+		type="submit">Previous</button
+	>
+</div>
+
+<div class="bg-[#0e696a] rounded-lg p-6 flex flex-col justify-center">
+	<h2 class="font-semibold mb-4">Payment</h2>
+
+	<button
+		class="bg-[#02a676] mt-6 hover:saturate-150 transition p-2 px-4 rounded-md"
+		type="submit">Next</button
+	>
+	<button
+		class="text-white mt-2 font-semibold transition p-2 px-4 rounded-md"
+		type="submit">Previous</button
+	>
+</div>
