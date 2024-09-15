@@ -1,7 +1,7 @@
 import { db } from "$lib/server/db";
 import { eq } from "drizzle-orm";
-import { clicksTable, progressTable } from "$lib/server/schema";
 
+import { clicksTable, donorsTable, progressTable } from "$lib/server/schema";
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async () => {
@@ -16,6 +16,7 @@ export const load: PageServerLoad = async () => {
 			.from(clicksTable)
 			.where(eq(clicksTable.country, "Palestine")),
 		progress: await db.select().from(progressTable),
+		donors: await db.select().from(donorsTable),
 	};
 };
 

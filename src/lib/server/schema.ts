@@ -1,4 +1,11 @@
-import { pgTable, timestamp, text, serial, numeric } from "drizzle-orm/pg-core";
+import {
+	pgTable,
+	timestamp,
+	text,
+	serial,
+	numeric,
+	boolean,
+} from "drizzle-orm/pg-core";
 
 export const clicksTable = pgTable("clicks", {
 	id: serial("id").primaryKey(),
@@ -12,5 +19,19 @@ export const progressTable = pgTable("progress", {
 	last_updated: timestamp("last_updated").defaultNow(),
 });
 
+export const donorsTable = pgTable("donors", {
+	id: serial("id").primaryKey(),
+	display_name: text("name"),
+	email: text("name"),
+	phone_number: text("phone_number"),
+	message: text("message"),
+	receive_updates: boolean("receive_update"),
+	anonymous: boolean("anonymous"),
+});
+
 export type InsertClick = typeof clicksTable.$inferInsert;
 export type SelectClick = typeof clicksTable.$inferSelect;
+export type InsertProgress = typeof progressTable.$inferInsert;
+export type SelectProgress = typeof progressTable.$inferSelect;
+export type InsertDonors = typeof donorsTable.$inferInsert;
+export type SelectDonors = typeof donorsTable.$inferSelect;
