@@ -11,27 +11,64 @@
     import { onMount } from "svelte";
     onMount(() => {
         //@ts-ignore
-        VanillaTilt.init(document.querySelectorAll(".form"), { reverse: true, max: 15, speed: 100 });
+        VanillaTilt.init(document.querySelectorAll(".form"), {
+            reverse: true,
+            max: 15,
+            speed: 100,
+        });
     });
 
     export let countryISO: string;
     export let clicks: number;
 
-    const MAP = ["from-green-400 via-green-400/25", "from-blue-600 via-blue-600/25"];
+    const MAP = [
+        "from-green-400 via-green-400/25",
+        "from-blue-600 via-blue-600/25",
+    ];
+    import { Confetti } from "svelte-confetti";
+
+    let confetti = false;
+    function click() {
+        incrementByISO(countryISO);
+        // TODO: Get flag image based on countryISO
+        
+        confetti = true;
+
+        setTimeout(() => {
+            confetti = false;
+        }, 1000);
+    }
 </script>
 
+{#if confetti}
+    <div class="absolute inset-0 pointer-events-none z-50">
+        <Confetti
+            colorArray={["url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjs5EpWI0Ifpgl3ZzZfq_G_I8YTuz9_pfiPw&s)"]}
+            amount={50}
+            duration={1000}
+            fallDistance="100vh"
+        />
+    </div>
+{/if}
+
 <form method="POST" action="?/click" use:enhance class="form">
-    <button on:click={() => incrementByISO(countryISO)} class="border border-black/75 active:scale-90 transition hover:scale-105 p-6 rounded-xl bg-gradient-to-br {MAP[countryISO === "PS" ? 0 : 1]}">
+    <button
+        on:click={click}
+        class="border border-black/75 active:scale-90 transition hover:scale-105 p-6 rounded-xl bg-gradient-to-br {MAP[
+            countryISO === 'PS' ? 0 : 1
+        ]}"
+    >
         <div class="flex flex-col items-center">
             <input type="hidden" name="iso" value={countryISO} />
+            <!-- TODO: Dynamic support -->
             {#if countryISO === "PS"}
                 <Ps size={128} />
             {:else}
                 <Il size={128} />
             {/if}
-    
+
             <Country {countryISO} {clicks} />
-    
+
             <!-- <Button
                 classNames="bg-gradient-to-br {countryISO === 'PS'
                     ? 'from-green-400'
@@ -40,5 +77,4 @@
             /> -->
         </div>
     </button>
-    
 </form>
