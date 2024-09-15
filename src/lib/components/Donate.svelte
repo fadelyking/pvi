@@ -1,4 +1,26 @@
 <script lang="ts">
+	import { PUBLIC_PAYPAL_KEY } from "$env/static/public";
+	import { loadScript, type PayPalNamespace } from "@paypal/paypal-js";
+
+	const clientID = PUBLIC_PAYPAL_KEY;
+	let paypal: PayPalNamespace | null;
+	async function runPaypal() {
+		try {
+			paypal = await loadScript({ clientId: clientID });
+		} catch (error) {
+			console.error("failed to load the PayPal JS SDK script", error);
+		}
+		// TODO FIX TYPESCRIPT ERROR HERE
+		if (paypal) {
+			try {
+				await paypal.Buttons().render("#paypal");
+			} catch (error) {
+				console.error("failed to render the PayPal Buttons", error);
+			}
+		}
+	}
+
+	runPaypal();
 	$: selectedPackage = -1;
 
 	const packages = [
@@ -88,7 +110,7 @@
 	>
 </div>
 
-<div class="bg-[#0e696a] rounded-lg p-6 flex flex-col justify-center hidden">
+<div class="bg-[#0e696a] rounded-lg p-6 flex flex-col justify-center">
 	<h2 class="font-semibold mb-4">Details</h2>
 
 	{#each formFieldTwo as field}
@@ -148,11 +170,7 @@
 
 <div class="bg-[#0e696a] rounded-lg p-6 flex flex-col justify-center">
 	<h2 class="font-semibold mb-4">Payment</h2>
-
-	<button
-		class="bg-[#02a676] mt-6 hover:saturate-150 transition p-2 px-4 rounded-md"
-		type="submit">Next</button
-	>
+	<div id="paypal"></div>
 	<button
 		class="text-white mt-2 font-semibold transition p-2 px-4 rounded-md"
 		type="submit">Previous</button
