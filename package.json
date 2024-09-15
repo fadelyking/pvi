@@ -30,6 +30,7 @@
 	"type": "module",
 	"dependencies": {
 		"@neondatabase/serverless": "^0.9.5",
+		"@paypal/paypal-js": "^8.1.1",
 		"dotenv": "^16.4.5",
 		"drizzle-orm": "^0.33.0",
 		"postgres": "^3.4.4",
