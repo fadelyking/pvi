@@ -10,13 +10,15 @@
 		} catch (error) {
 			console.error("failed to load the PayPal JS SDK script", error);
 		}
-		// TODO FIX TYPESCRIPT ERROR HERE
-		if (paypal) {
+
+		if (paypal && paypal.Buttons) {
 			try {
 				await paypal.Buttons().render("#paypal");
 			} catch (error) {
 				console.error("failed to render the PayPal Buttons", error);
 			}
+		} else {
+			console.error("failed to initialize paypal api");
 		}
 	}
 

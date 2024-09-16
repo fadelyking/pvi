@@ -11,6 +11,9 @@ importers:
       '@neondatabase/serverless':
         specifier: ^0.9.5
         version: 0.9.5
+      '@paypal/paypal-js':
+        specifier: ^8.1.1
+        version: 8.1.1
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
@@ -545,6 +548,9 @@ packages:
   '@nodelib/fs.walk@1.2.8':
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
+
+  '@paypal/paypal-js@8.1.1':
+    resolution: {integrity: sha512-9VJ2I0Ui10fD4u7DF8eT524mT7NC0Z6zm/4l4nFuSyNGUxNfIi3BI+LB/cmgifl5aBs2HdIeJssQ08NZz7TFBg==}
 
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
@@ -1356,6 +1362,9 @@ packages:
     resolution: {integrity: sha512-IbyN+9KslkqcXa8AO9fxpk97PA4pzewvpi2B3Dwy9u4zpV32QicaEdgmF3eSQUzdRk7ttDHQejNgAEr4XoeH4A==}
     engines: {node: '>=12'}
 
+  promise-polyfill@8.3.0:
+    resolution: {integrity: sha512-H5oELycFml5yto/atYqmjyigJoAo3+OXwolYiH7OfQuYlAqhxNvTfiNMbV9hsC6Yp83yE5r2KTVmtrG6R9i6Pg==}
+
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
@@ -1940,6 +1949,10 @@ snapshots:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
+
+  '@paypal/paypal-js@8.1.1':
+    dependencies:
+      promise-polyfill: 8.3.0
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
@@ -2656,6 +2669,8 @@ snapshots:
   postgres-range@1.1.4: {}
 
   postgres@3.4.4: {}
+
+  promise-polyfill@8.3.0: {}
 
   queue-microtask@1.2.3: {}
 
