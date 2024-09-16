@@ -24,6 +24,7 @@ export const donorsTable = pgTable("donors", {
 	display_name: text("name"),
 	email: text("name"),
 	phone_number: text("phone_number"),
+	amount: numeric("amount"),
 	message: text("message"),
 	receive_updates: boolean("receive_update"),
 	anonymous: boolean("anonymous"),
