@@ -43,6 +43,8 @@
 			} catch (error) {
 				console.error("failed to render the PayPal Buttons", error);
 			}
+		} else {
+			console.error("failed to initialize paypal api");
 		}
 	}
 
