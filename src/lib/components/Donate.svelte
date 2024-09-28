@@ -4,16 +4,42 @@
 
 	const clientID = PUBLIC_PAYPAL_KEY;
 	let paypal: PayPalNamespace | null;
+
+	$: selectedPackage = -1;
+	$: selectedPrice = 1;
+
+	const packages = [
+		{ amount: 1000, price: 1 },
+		{ amount: 10000, price: 10 },
+		{ amount: 50000, price: 50 },
+		{ amount: 100000, price: 100 },
+	];
+
 	async function runPaypal() {
 		try {
 			paypal = await loadScript({ clientId: clientID });
 		} catch (error) {
 			console.error("failed to load the PayPal JS SDK script", error);
 		}
-		// TODO FIX TYPESCRIPT ERROR HERE
-		if (paypal) {
+		if (paypal && typeof paypal.Buttons === "function") {
 			try {
-				await paypal.Buttons().render("#paypal");
+				await paypal
+					.Buttons({
+						createOrder: (data, actions) => {
+							return actions.order.create({
+								intent: "CAPTURE",
+								purchase_units: [
+									{
+										amount: {
+											currency_code: "USD",
+											value: `${selectedPrice}`,
+										},
+									},
+								],
+							});
+						},
+					})
+					.render("#paypal");
 			} catch (error) {
 				console.error("failed to render the PayPal Buttons", error);
 			}
@@ -21,26 +47,6 @@
 	}
 
 	runPaypal();
-	$: selectedPackage = -1;
-
-	const packages = [
-		{
-			amount: 1000,
-			price: 1,
-		},
-		{
-			amount: 10000,
-			price: 10,
-		},
-		{
-			amount: 50000,
-			price: 50,
-		},
-		{
-			amount: 100000,
-			price: 100,
-		},
-	];
 
 	const formFieldTwo = [
 		{
@@ -72,9 +78,17 @@
 			isTextarea: true,
 		},
 	];
+
+	function handlePackageSelect() {
+		const selectedPkg = packages.find(
+			(pkg) => pkg.amount === selectedPackage
+		);
+		selectedPrice = selectedPkg ? selectedPkg.price : packages[3].price;
+	}
+	handlePackageSelect();
 </script>
 
-<div class="bg-[#0e696a] rounded-lg p-6 flex justify-center flex-col hidden">
+<div class="bg-[#0e696a] rounded-lg p-6 flex justify-center flex-col">
 	<h2 class="font-semibold">Boost your clicks with a donation below.</h2>
 	<small> Select the amount of clicks you want. </small>
 	<br />
@@ -85,7 +99,10 @@
 				class="transition border {selectedPackage === pkg.amount
 					? 'bg-[#02a676] border-white'
 					: 'bg-[#02a676]/50 border-transparent'} p-2 px-4 rounded-md"
-				on:click={() => (selectedPackage = pkg.amount)}
+				on:click={() => {
+					selectedPackage = pkg.amount;
+					handlePackageSelect();
+				}}
 			>
 				{pkg.amount.toLocaleString()} Clicks
 			</button>
