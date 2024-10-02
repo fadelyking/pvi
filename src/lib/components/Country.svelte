@@ -9,7 +9,7 @@
 </script>
 
 <div>
-	<h3 class="text-white font-bold text-3xl">{countryISO === "PS" ? "Palestine" : ISOToName(countryISO)}</h3>
+	<h3 class="text-white font-bold text-3xl">{ISOToName(countryISO)}</h3>
 	<p class="text-center italic font-light text-xl">
 		{clicks} clicks
 	</p>

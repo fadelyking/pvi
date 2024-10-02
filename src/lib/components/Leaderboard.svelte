@@ -1,4 +1,6 @@
 <script>
+	import { ISOToName } from "$lib/helpers/ISOToName";
+
 	const donors = [
 		{
 			name: "Benjamin",
@@ -18,12 +20,15 @@
 	];
 </script>
 
-<div>
+<div class="bg-[#0e696a] rounded-lg p-6 w-[512px]">
+	<h2 class="font-semibold">Leaderboards</h2>
 	<ul>
-
-	{#each donors as donor}
-		<li>{donor.name} donated {donor.value} for {donor.country}</li>
-	{/each}
-</ul>
-
+		{#each donors as donor}
+			<li>
+				{donor.name} donated {donor.value.toLocaleString()} clicks for {ISOToName(
+					donor.country,
+				)}
+			</li>
+		{/each}
+	</ul>
 </div>
