@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { PUBLIC_PAYPAL_KEY } from "$env/static/public";
 	import { loadScript, type PayPalNamespace } from "@paypal/paypal-js";
+    import { fade, slide } from "svelte/transition";
 
 	const clientID = PUBLIC_PAYPAL_KEY;
 	let paypal: PayPalNamespace | null;
@@ -83,115 +84,99 @@
 
 	function handlePackageSelect() {
 		const selectedPkg = packages.find(
-			(pkg) => pkg.amount === selectedPackage
+			(pkg) => pkg.amount === selectedPackage,
 		);
 		selectedPrice = selectedPkg ? selectedPkg.price : packages[3].price;
 	}
 	handlePackageSelect();
 </script>
 
-<div class="bg-[#0e696a] rounded-lg p-6 flex justify-center flex-col">
+<div class="bg-[#0e696a] rounded-lg p-6 w-[400px] flex justify-center flex-col">
 	<h2 class="font-semibold">Boost your clicks with a donation below.</h2>
 	<small> Select the amount of clicks you want. </small>
 	<br />
 	<br />
 	<div class="flex flex-col gap-2 my-3">
-		{#each packages as pkg}
-			<button
-				class="transition border {selectedPackage === pkg.amount
-					? 'bg-[#02a676] border-white'
-					: 'bg-[#02a676]/50 border-transparent'} p-2 px-4 rounded-md"
-				on:click={() => {
-					selectedPackage = pkg.amount;
-					handlePackageSelect();
-				}}
-			>
-				{pkg.amount.toLocaleString()} Clicks
-			</button>
-		{/each}
+		<select class="text-black rounded-md" bind:value={selectedPackage}>
+			<option value={-1}>Select clicks</option>
+			{#each packages as pkg}
+				<option value={pkg.amount}
+					>+{pkg.amount.toLocaleString()} clicks</option
+				>
+			{/each}
+		</select>
 	</div>
-	<p class="text-center mb-3">or</p>
+	<!-- TODO: Implement this -->
+	<!-- <p class="text-center mb-3">or</p>
 	<input
 		class="col-span-2 rounded-md text-black"
 		type="text"
 		maxlength="6"
 		name="other-amount"
-		placeholder="Custom amount of Clicks"
-	/>
+		placeholder="Custom amount of clicks"
+	/> -->
 
-	<button
-		disabled={selectedPackage === -1}
-		class="bg-[#02a676] mt-3 hover:saturate-150 transition p-2 px-4 rounded-md {selectedPackage ===
-		-1
-			? 'pointer-events-none opacity-50'
-			: ''}"
-		type="submit">Next</button
-	>
-</div>
+	{#if selectedPackage >= 0}
+	<div transition:slide={{}}>
 
-<div class="bg-[#0e696a] rounded-lg p-6 flex flex-col justify-center">
-	<h2 class="font-semibold mb-4">Details</h2>
+		{#each formFieldTwo as field}
+			<label class="mb-4">
+				<div class="font-bold uppercase opacity-80 text-xs">
+					{field.label}:
+				</div>
 
-	{#each formFieldTwo as field}
-		<label class="mb-4">
-			<div class="font-bold uppercase opacity-80 text-xs">
-				{field.label}:
-			</div>
+				{#if field.isTextarea}
+					<textarea
+						class="w-full rounded-md text-black mt-1 h-24"
+						name={field.name}
+						placeholder={field.placeholder}
+					></textarea>
+				{:else}
+					<input
+						class="w-full rounded-md text-black mt-1"
+						type={field.type}
+						name={field.name}
+						placeholder={field.placeholder}
+					/>
+				{/if}
 
-			{#if field.isTextarea}
-				<textarea
-					class="w-full rounded-md text-black mt-1 h-24"
-					name={field.name}
-					placeholder={field.placeholder}
-				></textarea>
-			{:else}
-				<input
-					class="w-full rounded-md text-black mt-1"
-					type={field.type}
-					name={field.name}
-					placeholder={field.placeholder}
-				/>
-			{/if}
-
-			{#if field.optionalText}
-				<div class="text-sm text-white">{field.optionalText}</div>
-			{/if}
-		</label>
-	{/each}
-	<div>
-		<div class="mt-8">
-			<input
-				type="checkbox"
-				id="recentUpdates"
-				class="mr-2"
-				name="receive-update"
-			/>
-			<label for="recentUpdates" class="font-medium text-lg"
-				>YES! I want periodic updates on who is winning</label
-			>
-		</div>
+				{#if field.optionalText}
+					<div class="text-sm text-white">{field.optionalText}</div>
+				{/if}
+			</label>
+		{/each}
 		<div>
-			<input type="checkbox" class="mr-2" id="anonymous" />
-			<label for="anonymous" class="font-medium text-lg"
-				>Please keep my donation anonymous!</label
-			>
+			<div class="mt-8">
+				<input
+					type="checkbox"
+					id="recentUpdates"
+					class="mr-2"
+					name="receive-update"
+				/>
+				<label for="recentUpdates" class="font-medium text-lg"
+					>YES! I want periodic updates on who is winning</label
+				>
+			</div>
+			<div>
+				<input type="checkbox" class="mr-2" id="anonymous" />
+				<label for="anonymous" class="font-medium text-lg"
+					>Please keep my donation anonymous!</label
+				>
+			</div>
 		</div>
+		<button
+			class="bg-[#02a676] mt-6 hover:saturate-150 transition p-2 px-4 rounded-md"
+			type="submit">Next</button
+		>
+		<button
+			class="text-white mt-2 font-semibold transition p-2 px-4 rounded-md"
+			type="submit">Previous</button
+		>
 	</div>
-	<button
-		class="bg-[#02a676] mt-6 hover:saturate-150 transition p-2 px-4 rounded-md"
-		type="submit">Next</button
-	>
-	<button
-		class="text-white mt-2 font-semibold transition p-2 px-4 rounded-md"
-		type="submit">Previous</button
-	>
-</div>
 
-<div class="bg-[#0e696a] rounded-lg p-6 flex flex-col justify-center">
-	<h2 class="font-semibold mb-4">Payment</h2>
-	<div id="paypal"></div>
-	<button
-		class="text-white mt-2 font-semibold transition p-2 px-4 rounded-md"
-		type="submit">Previous</button
-	>
+	{/if}
+	<div class="{selectedPackage >= 0 ? "" : "hidden"}">
+		<h2 class="font-semibold mb-4">Payment</h2>
+		<div id="paypal"></div>
+	</div>
 </div>
