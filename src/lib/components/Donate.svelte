@@ -57,20 +57,23 @@
 			name: "display-name",
 			placeholder: "Display Name",
 			type: "text",
+			required: false,
 		},
 		{
 			label: "Email",
 			name: "email",
 			placeholder: "Email",
 			type: "text",
+			required: true,
 		},
 		{
 			label: "Mobile Phone",
 			name: "mobile-phone",
 			placeholder: "Mobile Phone",
 			type: "text",
+			required: false,
 			optionalText:
-				"optional; by entering a phone number, you consent to receive text messages",
+				"By entering a phone number, you consent to receive text messages",
 		},
 
 		{
@@ -78,6 +81,7 @@
 			name: "message",
 			placeholder: "Message",
 			type: "text",
+			required: false,
 			isTextarea: true,
 		},
 	];
@@ -120,9 +124,9 @@
 	<div transition:slide={{}}>
 
 		{#each formFieldTwo as field}
-			<label class="mb-4">
+			<label class="mb-6">
 				<div class="font-bold uppercase opacity-80 text-xs">
-					{field.label}:
+					{field.label}:<em class="text-red-600 font-black">{field.required ? "*" : ""}</em>
 				</div>
 
 				{#if field.isTextarea}
@@ -141,7 +145,7 @@
 				{/if}
 
 				{#if field.optionalText}
-					<div class="text-sm text-white">{field.optionalText}</div>
+					<div class="text-xs text-white">{field.optionalText}</div>
 				{/if}
 			</label>
 		{/each}
