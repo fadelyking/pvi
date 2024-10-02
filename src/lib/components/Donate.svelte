@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { PUBLIC_PAYPAL_KEY } from "$env/static/public";
 	import { loadScript, type PayPalNamespace } from "@paypal/paypal-js";
-    import { fade, slide } from "svelte/transition";
+	import { fade, slide } from "svelte/transition";
 
 	const clientID = PUBLIC_PAYPAL_KEY;
 	let paypal: PayPalNamespace | null;
@@ -121,65 +121,67 @@
 	/> -->
 
 	{#if selectedPackage >= 0}
-	<div transition:slide={{}}>
+		<div transition:slide={{}}>
+			{#each formFieldTwo as field}
+				<label class="mb-6">
+					<div class="font-bold uppercase opacity-80 text-xs">
+						{field.label}:<em class="text-red-600 font-black"
+							>{field.required ? "*" : ""}</em
+						>
+					</div>
 
-		{#each formFieldTwo as field}
-			<label class="mb-6">
-				<div class="font-bold uppercase opacity-80 text-xs">
-					{field.label}:<em class="text-red-600 font-black">{field.required ? "*" : ""}</em>
-				</div>
+					{#if field.isTextarea}
+						<textarea
+							class="w-full rounded-md text-black mt-1 h-24"
+							name={field.name}
+							placeholder={field.placeholder}
+						></textarea>
+					{:else}
+						<input
+							class="w-full rounded-md text-black mt-1"
+							type={field.type}
+							name={field.name}
+							placeholder={field.placeholder}
+						/>
+					{/if}
 
-				{#if field.isTextarea}
-					<textarea
-						class="w-full rounded-md text-black mt-1 h-24"
-						name={field.name}
-						placeholder={field.placeholder}
-					></textarea>
-				{:else}
-					<input
-						class="w-full rounded-md text-black mt-1"
-						type={field.type}
-						name={field.name}
-						placeholder={field.placeholder}
-					/>
-				{/if}
-
-				{#if field.optionalText}
-					<div class="text-xs text-white">{field.optionalText}</div>
-				{/if}
-			</label>
-		{/each}
-		<div>
-			<div class="mt-8">
-				<input
-					type="checkbox"
-					id="recentUpdates"
-					class="mr-2"
-					name="receive-update"
-				/>
-				<label for="recentUpdates" class="font-medium text-lg"
-					>YES! I want periodic updates on who is winning</label
-				>
-			</div>
+					{#if field.optionalText}
+						<div class="text-xs text-white">
+							{field.optionalText}
+						</div>
+					{/if}
+				</label>
+			{/each}
 			<div>
-				<input type="checkbox" class="mr-2" id="anonymous" />
-				<label for="anonymous" class="font-medium text-lg"
-					>Please keep my donation anonymous!</label
-				>
+				<div class="mt-8">
+					<input
+						type="checkbox"
+						id="recentUpdates"
+						class="mr-2"
+						name="receive-update"
+					/>
+					<label for="recentUpdates" class="font-medium"
+						>I want periodic updates on who is winning</label
+					>
+				</div>
+				<div>
+					<input type="checkbox" class="mr-2" id="anonymous" />
+					<label for="anonymous" class="font-medium"
+						>Keep my donation anonymous</label
+					>
+				</div>
 			</div>
+			<button
+				class="bg-[#02a676] mt-6 hover:saturate-150 transition p-2 px-4 rounded-md"
+				type="submit">Next</button
+			>
+			<button
+				class="text-white mt-2 font-semibold transition p-2 px-4 rounded-md"
+				type="submit">Previous</button
+			>
 		</div>
-		<button
-			class="bg-[#02a676] mt-6 hover:saturate-150 transition p-2 px-4 rounded-md"
-			type="submit">Next</button
-		>
-		<button
-			class="text-white mt-2 font-semibold transition p-2 px-4 rounded-md"
-			type="submit">Previous</button
-		>
-	</div>
-
 	{/if}
-	<div class="{selectedPackage >= 0 ? "" : "hidden"}">
+	<div class={selectedPackage >= 0 ? "" : "hidden"}>
 		<h2 class="font-semibold mb-4">Payment</h2>
 		<div id="paypal"></div>
 	</div>
