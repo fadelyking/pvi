@@ -4,10 +4,14 @@
 	import type { PageData /*, FormData*/ } from "./$types";
 	import Donate from "$lib/components/Donate.svelte";
 	import Form from "$lib/components/Form.svelte";
+    import Leaderboard from "$lib/components/Leaderboard.svelte";
 
 	export let data: PageData;
 	$: totalClicked = data.clicks.length;
 </script>
+
+
+<Leaderboard />
 
 <div class="mx-auto containe">
 	<div class="grid grid-cols-1 justify-center place-items-center">
