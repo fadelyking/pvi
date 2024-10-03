@@ -1,21 +1,43 @@
 <script>
+    import { FormatTimeRelative } from "$lib/helpers/FormatTimeRelative";
 	import { ISOToName } from "$lib/helpers/ISOToName";
 
-	const donors = [
+	const leaderboard = [
 		{
 			name: "Benjamin",
-			value: 10000,
+			amount: 10000,
 			country: "IL",
 		},
 		{
 			name: "Furkan",
-			value: 5000,
+			amount: 5000,
 			country: "IL",
 		},
 		{
 			name: "Fadhel",
-			value: 10000,
+			amount: 10000,
 			country: "PS",
+		},
+	];
+
+	const recent = [
+		{
+			name: "Person",
+			amount: 500,
+			country: "IL",
+			date: Date.now()
+		},
+		{
+			name: "Person 2",
+			amount: 5000,
+			country: "IL",
+			date: Date.now() - 150000,
+		},
+		{
+			name: "Person 3",
+			amount: 10000,
+			country: "PS",
+			date: Date.now() - 550000,
 		},
 	];
 </script>
@@ -23,12 +45,19 @@
 <div class="bg-[#0e696a] rounded-lg p-6 w-[512px]">
 	<h2 class="font-semibold">Leaderboards</h2>
 	<ul>
-		{#each donors as donor}
+		{#each leaderboard as donor}
 			<li>
-				{donor.name} donated {donor.value.toLocaleString()} clicks for {ISOToName(
+				<strong>{donor.name}</strong> donated {donor.amount.toLocaleString()} clicks for {ISOToName(
 					donor.country,
 				)}
 			</li>
+		{/each}
+	</ul>
+	<hr/>
+	<h2 class="font-semibold mt-2">Most Recent</h2>
+	<ul>
+		{#each recent as donor}
+		<li><strong>{donor.name}</strong> donated {donor.amount} clicks {FormatTimeRelative(new Date(donor.date))}</li>
 		{/each}
 	</ul>
 </div>

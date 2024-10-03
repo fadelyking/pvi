@@ -45,7 +45,7 @@
         <Confetti
             colorArray={["url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjs5EpWI0Ifpgl3ZzZfq_G_I8YTuz9_pfiPw&s)"]}
             amount={50}
-            duration={1000}
+            duration={5000}
             fallDistance="100vh"
         />
     </div>

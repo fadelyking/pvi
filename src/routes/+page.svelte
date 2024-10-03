@@ -10,18 +10,18 @@
 	$: totalClicked = data.clicks.length;
 </script>
 
-<div class="mx-auto container">
-	<div class="flex justify-center my-12">
+<div class="mx-auto container grid grid-cols-1 md:grid-cols-2">
+	<div class="flex justify-center">
 		<Leaderboard />
 	</div>
 
-	<div class="grid grid-cols-1 justify-center place-items-center">
+	<div class="grid grid-cols-1 gap-12 justify-center place-items-center">
 		<div class="flex flex-col gap-3">
 			<div class="flex flex-row justify-between gap-3">
 				<Form countryISO="PS" clicks={data.palestine.length} />
 				<Form countryISO="IL" clicks={data.israel.length} />
 			</div>
-			<p class=" font-black text-5xl px-3">
+			<p class="font-black text-4xl">
 				{Intl.NumberFormat(undefined).format(totalClicked)} clicks
 			</p>
 			<ProgressBar
@@ -30,7 +30,7 @@
 					: 50}
 			/>
 		</div>
-		<div class="my-12">
+		<div class="">
 			<Donate />
 		</div>
 	</div>
