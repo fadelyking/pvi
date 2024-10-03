@@ -10,7 +10,7 @@
 	$: totalClicked = data.clicks.length;
 </script>
 
-<div class="mx-auto container grid grid-cols-1 md:grid-cols-2">
+<div class="mx-auto container grid gap-12 grid-cols-1 md:grid-cols-2">
 	<div class="flex justify-center">
 		<Leaderboard />
 	</div>
@@ -30,8 +30,9 @@
 					: 50}
 			/>
 		</div>
-		<div class="">
-			<Donate />
-		</div>
+	</div>
+
+	<div class="flex justify-center">
+		<Donate />
 	</div>
 </div>
