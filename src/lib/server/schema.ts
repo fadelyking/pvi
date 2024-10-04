@@ -21,9 +21,10 @@ export const progressTable = pgTable("progress", {
 
 export const donorsTable = pgTable("donors", {
 	id: serial("id").primaryKey(),
-	display_name: text("name"),
-	email: text("name"),
+	name: text("name"),
+	email: text("email"),
 	phone_number: text("phone_number"),
+	country: text("country"),
 	amount: numeric("amount"),
 	message: text("message"),
 	receive_updates: boolean("receive_update"),
