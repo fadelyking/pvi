@@ -185,7 +185,7 @@
 			</div>
 			<select class="w-full rounded-md text-black mt-1" name="country">
 				<option value="IL">Israel</option>
-				<option value="PL">Palestine</option></select
+				<option value="PS">Palestine</option></select
 			>
 			<div>
 				<div class="mt-8">
