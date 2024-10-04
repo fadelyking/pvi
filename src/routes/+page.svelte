@@ -12,7 +12,7 @@
 
 <div class="mx-auto container grid gap-12 grid-cols-1 md:grid-cols-2">
 	<div class="flex justify-center">
-		<Leaderboard />
+		<Leaderboard donors={data.donors} />
 	</div>
 
 	<div class="grid grid-cols-1 gap-12 justify-center place-items-center">
