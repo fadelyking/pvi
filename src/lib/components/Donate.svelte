@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from "$app/forms";
 	import { PUBLIC_PAYPAL_KEY } from "$env/static/public";
-    import { ISOToName } from "$lib/helpers/ISOToName";
+	import { ISOToName } from "$lib/helpers/ISOToName";
 	import { loadScript, type PayPalNamespace } from "@paypal/paypal-js";
 	import { onMount } from "svelte";
 
@@ -32,12 +32,9 @@
 				paypal.Buttons === undefined ||
 				paypal.Buttons === null
 			) {
-				console.log(paypal);
-				console.log(paypal?.Buttons);
 				return;
 			}
 
-			console.log("we gud");
 			paypal
 				.Buttons({
 					createOrder: (data, actions) => {
@@ -62,7 +59,7 @@
 						const details = await actions.order.capture();
 						console.log("Payment approved:", details);
 						const formElement = document.getElementById(
-							"donate-form",
+							"donate-form"
 						) as HTMLFormElement | null;
 						if (formElement) {
 							formElement.submit();
@@ -113,7 +110,7 @@
 
 	function handlePackageSelect() {
 		const selectedPkg = packages.find(
-			(pkg) => pkg.amount === selectedPackage,
+			(pkg) => pkg.amount === selectedPackage
 		);
 		selectedPrice = selectedPkg ? selectedPkg.price : packages[3].price;
 	}
@@ -190,7 +187,7 @@
 			</div>
 			<select class="w-full rounded-md text-black mt-1" name="country">
 				<option value="">Choose a country</option>
-				
+
 				<option value={q1}>{ISOToName(q1)}</option>
 				<option value={q2}>{ISOToName(q2)}</option>
 			</select>

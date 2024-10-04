@@ -6,8 +6,10 @@
 	import Form from "$lib/components/Form.svelte";
 	import Leaderboard from "$lib/components/Leaderboard.svelte";
 	import { ISOToName } from "$lib/helpers/ISOToName";
-
+	import { optimistikit } from "optimistikit";
 	export let data: PageData;
+	const { enhance, optimistic } = optimistikit<typeof data>();
+	$: optimistic_data = optimistic(data);
 	$: totalClicked = data.clicks.length;
 </script>
 
@@ -19,18 +21,19 @@
 	<div class="">
 		<div class="grid grid-cols-1 gap-12 justify-center place-items-center">
 			<h2 class="text-4xl font-black">
-				{ISOToName(data.q1)} <em class="font-normal not-italic">vs.</em>
-				{ISOToName(data.q2)}
+				{ISOToName($optimistic_data.q1)}
+				<em class="font-normal not-italic">vs.</em>
+				{ISOToName($optimistic_data.q2)}
 			</h2>
 			<div class="flex flex-col gap-3">
 				<div class="flex flex-row justify-between gap-3">
 					<Form
-						countryISO={data.q1}
-						clicks={data.firstCountry.length}
+						countryISO={$optimistic_data.q1}
+						clicks={$optimistic_data.firstCountry.length}
 					/>
 					<Form
-						countryISO={data.q2}
-						clicks={data.secondCountry.length}
+						countryISO={$optimistic_data.q2}
+						clicks={$optimistic_data.secondCountry.length}
 					/>
 				</div>
 				<p class="font-black text-4xl">
@@ -38,7 +41,7 @@
 				</p>
 				<ProgressBar
 					progress={data.firstCountry.length -
-						data.secondCountry.length +
+						$optimistic_data.secondCountry.length +
 						50}
 				/>
 			</div>
