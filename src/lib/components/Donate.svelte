@@ -51,9 +51,18 @@
 					},
 					onApprove: async (data, actions) => {
 						console.log("APPROVED PAYMENT");
+						if (!actions.order) {
+							console.error("Order is undefined");
+							return;
+						}
 						const details = await actions.order.capture();
 						console.log("Payment approved:", details);
-						document.getElementById("donate-form").submit();
+						const formElement = document.getElementById(
+							"donate-form"
+						) as HTMLFormElement | null;
+						if (formElement) {
+							formElement.submit();
+						}
 					},
 					onError: function (err) {
 						alert("something went wrong");
