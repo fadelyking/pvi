@@ -1,10 +1,14 @@
 <script lang="ts">
 	import { enhance } from "$app/forms";
 	import { PUBLIC_PAYPAL_KEY } from "$env/static/public";
+    import { ISOToName } from "$lib/helpers/ISOToName";
 	import { loadScript, type PayPalNamespace } from "@paypal/paypal-js";
 	import { onMount } from "svelte";
 
 	import { fade, slide } from "svelte/transition";
+
+	export let q1: string = "";
+	export let q2: string = "";
 
 	const clientID = PUBLIC_PAYPAL_KEY;
 	$: selectedPackage = -1;
@@ -58,7 +62,7 @@
 						const details = await actions.order.capture();
 						console.log("Payment approved:", details);
 						const formElement = document.getElementById(
-							"donate-form"
+							"donate-form",
 						) as HTMLFormElement | null;
 						if (formElement) {
 							formElement.submit();
@@ -97,7 +101,6 @@
 			optionalText:
 				"By entering a phone number, you consent to receive text messages",
 		},
-
 		{
 			label: "Message",
 			name: "message",
@@ -110,7 +113,7 @@
 
 	function handlePackageSelect() {
 		const selectedPkg = packages.find(
-			(pkg) => pkg.amount === selectedPackage
+			(pkg) => pkg.amount === selectedPackage,
 		);
 		selectedPrice = selectedPkg ? selectedPkg.price : packages[3].price;
 	}
@@ -119,12 +122,14 @@
 
 <form
 	id="donate-form"
-	class="bg-[#0e696a] rounded-lg p-6 w-[400px] flex justify-center flex-col"
+	class="bg-[#0e696a] rounded-lg p-4 w-[400px] flex justify-center flex-col"
 	method="POST"
 	action="?/donate"
 	use:enhance
 >
-	<h2 class="font-semibold">Boost your clicks with a donation below.</h2>
+	<h2 class="font-semibold text-xl">
+		Boost your clicks with a donation below.
+	</h2>
 	<small> Select the amount of clicks you want. </small>
 	<br />
 	<br />
@@ -148,7 +153,7 @@
 		placeholder="Custom amount of clicks"
 	/> -->
 
-	{#if selectedPackage >= 0}
+	{#if selectedPackage >= -1}
 		<input type="hidden" name="amount" value={selectedPackage} />
 		<div transition:slide={{}}>
 			{#each formFieldTwo as field}
@@ -184,9 +189,11 @@
 				Country<em class="text-red-600 font-black"></em>
 			</div>
 			<select class="w-full rounded-md text-black mt-1" name="country">
-				<option value="IL">Israel</option>
-				<option value="PS">Palestine</option></select
-			>
+				<option value="">Choose a country</option>
+				
+				<option value={q1}>{ISOToName(q1)}</option>
+				<option value={q2}>{ISOToName(q2)}</option>
+			</select>
 			<div>
 				<div class="mt-8">
 					<input
@@ -221,7 +228,7 @@
 			>
 		</div>
 	{/if}
-	<div class={selectedPackage >= 0 ? "" : "hidden"}>
+	<div class={selectedPackage >= -1 ? "" : "hidden"}>
 		<h2 class="font-semibold mb-4">Payment</h2>
 		<div id="paypal"></div>
 	</div>

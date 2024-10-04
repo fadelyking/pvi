@@ -10,35 +10,35 @@ export const load: PageServerLoad = async ({ url }) => {
 	const firstCountry = url.searchParams.get("q1") ?? "PS";
 	const secondCountry = url.searchParams.get("q2") ?? "IL";
 
-	const firstCountryFriendly = ISOToName(firstCountry);
-	const secondCountryFriendly = ISOToName(secondCountry);
+	// TODO: Get value between two country clicks
 
-	if (!firstCountryFriendly || !secondCountryFriendly) {
-		throw Error(
-			"Server-sided error occured, our monkeys are hard at work to figure out why."
-		);
-	}
+	// const firstCountryFriendly = ISOToName(firstCountry);
+	// const secondCountryFriendly = ISOToName(secondCountry);
+
+	// if (!firstCountryFriendly || !secondCountryFriendly) {
+	// 	throw Error(
+	// 		"Server-sided error occured, our monkeys are hard at work to figure out why."
+	// 	);
+	// }
+
+	// const test = await db.select().from(clicksTable).where(eq(clicksTable.country, firstCountry));
+	// console.log(test);
 
 	return {
+		q1: firstCountry,
+		q2: secondCountry,
 		clicks: await db.select().from(clicksTable),
-		israel: await db
+		firstCountry: await db
 			.select()
 			.from(clicksTable)
-			.where(eq(clicksTable.country, firstCountryFriendly)),
-		palestine: await db
+			.where(eq(clicksTable.country, firstCountry)),
+		secondCountry: await db
 			.select()
 			.from(clicksTable)
-			.where(eq(clicksTable.country, secondCountryFriendly)),
-		progress: await db.select().from(progressTable),
+			.where(eq(clicksTable.country, secondCountry)),
 		donors: await db.select().from(donorsTable),
 	};
 };
-
-const progressResult = await db.select().from(progressTable);
-
-let currentProgress = parseFloat(
-	progressResult[0]?.progress !== null ? progressResult[0].progress : "50"
-);
 
 export const actions = {
 	click: async ({ request }) => {
@@ -48,43 +48,19 @@ export const actions = {
 		console.log("Clicked for country: ", iso);
 
 		// Check whether iso is valid 2 letter
-		if (String(iso).length !== 2) {
+		if (String(iso).length !== 2 || !iso) {
 			return { status: 400, body: "Invalid ISO" };
 		}
 
-		// TODO: Stop hardcoding
-		if (iso === "PS") {
-			try {
-				await db.insert(clicksTable).values({
-					country: "PS",
-					created_at: new Date(),
-				});
-				currentProgress = Math.min(currentProgress + 0.1, 100);
-				await db.update(progressTable).set({
-					progress: currentProgress.toString(),
-					last_updated: new Date(),
-				});
-				return { success: true, message: "Palestine entry added" };
-			} catch (error) {
-				console.error("Database insert error: ", error);
-				return { success: false, error: "Failed to insert data" };
-			}
-		} else {
-			try {
-				await db.insert(clicksTable).values({
-					country: "IL",
-					created_at: new Date(),
-				});
-				currentProgress = Math.min(currentProgress - 0.1, 100);
-				await db.update(progressTable).set({
-					progress: currentProgress.toString(),
-					last_updated: new Date(),
-				});
-				return { success: true, message: "Israel entry added" };
-			} catch (error) {
-				console.error("Database insert error: ", error);
-				return { success: false, error: "Failed to insert data" };
-			}
+		try {
+			await db.insert(clicksTable).values({
+				country: iso.toString(),
+				created_at: new Date(),
+			});
+			return { success: true, message: "Click added" };
+		} catch (error) {
+			console.error("Database insert error: ", error);
+			return { success: false, error: "Failed to insert data" };
 		}
 	},
 	donate: async ({ request }) => {

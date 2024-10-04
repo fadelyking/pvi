@@ -5,34 +5,47 @@
 	import Donate from "$lib/components/Donate.svelte";
 	import Form from "$lib/components/Form.svelte";
 	import Leaderboard from "$lib/components/Leaderboard.svelte";
+	import { ISOToName } from "$lib/helpers/ISOToName";
 
 	export let data: PageData;
 	$: totalClicked = data.clicks.length;
 </script>
 
-<div class="mx-auto container grid gap-12 grid-cols-1 md:grid-cols-2">
-	<div class="flex justify-center">
+<div class="flex flex-col md:flex-row justify-between">
+	<div class="">
 		<Leaderboard donors={data.donors} />
 	</div>
 
-	<div class="grid grid-cols-1 gap-12 justify-center place-items-center">
-		<div class="flex flex-col gap-3">
-			<div class="flex flex-row justify-between gap-3">
-				<Form countryISO="PS" clicks={data.palestine.length} />
-				<Form countryISO="IL" clicks={data.israel.length} />
+	<div class="">
+		<div class="grid grid-cols-1 gap-12 justify-center place-items-center">
+			<h2 class="text-4xl font-black">
+				{ISOToName(data.q1)} <em class="font-normal not-italic">vs.</em>
+				{ISOToName(data.q2)}
+			</h2>
+			<div class="flex flex-col gap-3">
+				<div class="flex flex-row justify-between gap-3">
+					<Form
+						countryISO={data.q1}
+						clicks={data.firstCountry.length}
+					/>
+					<Form
+						countryISO={data.q2}
+						clicks={data.secondCountry.length}
+					/>
+				</div>
+				<p class="font-black text-4xl">
+					{Intl.NumberFormat(undefined).format(totalClicked)} clicks
+				</p>
+				<ProgressBar
+					progress={data.firstCountry.length -
+						data.secondCountry.length +
+						50}
+				/>
 			</div>
-			<p class="font-black text-4xl">
-				{Intl.NumberFormat(undefined).format(totalClicked)} clicks
-			</p>
-			<ProgressBar
-				progress={data.progress[0]?.progress !== null
-					? Math.round(parseInt(data.progress[0].progress))
-					: 50}
-			/>
 		</div>
 	</div>
 
 	<div class="flex justify-center">
-		<Donate />
+		<Donate q1={data.q1} q2={data.q2} />
 	</div>
 </div>
