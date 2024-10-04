@@ -1,11 +1,12 @@
 <script lang="ts">
+	import { enhance } from "$app/forms";
 	import { PUBLIC_PAYPAL_KEY } from "$env/static/public";
 	import { loadScript, type PayPalNamespace } from "@paypal/paypal-js";
+	import { onMount } from "svelte";
+
 	import { fade, slide } from "svelte/transition";
 
 	const clientID = PUBLIC_PAYPAL_KEY;
-	let paypal: PayPalNamespace | null;
-
 	$: selectedPackage = -1;
 	$: selectedPrice = 1;
 
@@ -16,40 +17,52 @@
 		{ amount: 100000, price: 100 },
 	];
 
-	async function runPaypal() {
-		try {
-			paypal = await loadScript({ clientId: clientID });
-		} catch (error) {
-			console.error("failed to load the PayPal JS SDK script", error);
-		}
-		if (paypal && typeof paypal.Buttons === "function") {
-			try {
-				await paypal
-					.Buttons({
-						createOrder: (data, actions) => {
-							return actions.order.create({
-								intent: "CAPTURE",
-								purchase_units: [
-									{
-										amount: {
-											currency_code: "USD",
-											value: `${selectedPrice}`,
-										},
-									},
-								],
-							});
-						},
-					})
-					.render("#paypal");
-			} catch (error) {
-				console.error("failed to render the PayPal Buttons", error);
+	onMount(() => {
+		loadScript({
+			clientId: clientID,
+			components: ["buttons", "marks", "messages"],
+		}).then((paypal) => {
+			if (
+				paypal === undefined ||
+				paypal === null ||
+				paypal.Buttons === undefined ||
+				paypal.Buttons === null
+			) {
+				console.log(paypal);
+				console.log(paypal?.Buttons);
+				return;
 			}
-		} else {
-			console.error("failed to initialize paypal api");
-		}
-	}
 
-	runPaypal();
+			console.log("we gud");
+			paypal
+				.Buttons({
+					createOrder: (data, actions) => {
+						return actions.order.create({
+							intent: "CAPTURE",
+							purchase_units: [
+								{
+									amount: {
+										currency_code: "USD",
+										value: `${selectedPrice}`,
+									},
+								},
+							],
+						});
+					},
+					onApprove: async (data, actions) => {
+						console.log("APPROVED PAYMENT");
+						const details = await actions.order.capture();
+						console.log("Payment approved:", details);
+						document.getElementById("donate-form").submit();
+					},
+					onError: function (err) {
+						alert("something went wrong");
+						console.log("Something went wrong", err);
+					},
+				})
+				.render("#paypal");
+		});
+	});
 
 	const formFieldTwo = [
 		{
@@ -88,14 +101,20 @@
 
 	function handlePackageSelect() {
 		const selectedPkg = packages.find(
-			(pkg) => pkg.amount === selectedPackage,
+			(pkg) => pkg.amount === selectedPackage
 		);
 		selectedPrice = selectedPkg ? selectedPkg.price : packages[3].price;
 	}
 	handlePackageSelect();
 </script>
 
-<div class="bg-[#0e696a] rounded-lg p-6 w-[400px] flex justify-center flex-col">
+<form
+	id="donate-form"
+	class="bg-[#0e696a] rounded-lg p-6 w-[400px] flex justify-center flex-col"
+	method="POST"
+	action="?/donate"
+	use:enhance
+>
 	<h2 class="font-semibold">Boost your clicks with a donation below.</h2>
 	<small> Select the amount of clicks you want. </small>
 	<br />
@@ -121,6 +140,7 @@
 	/> -->
 
 	{#if selectedPackage >= 0}
+		<input type="hidden" name="amount" value={selectedPackage} />
 		<div transition:slide={{}}>
 			{#each formFieldTwo as field}
 				<label class="mb-6">
@@ -144,7 +164,6 @@
 							placeholder={field.placeholder}
 						/>
 					{/if}
-
 					{#if field.optionalText}
 						<div class="text-xs text-white">
 							{field.optionalText}
@@ -152,6 +171,13 @@
 					{/if}
 				</label>
 			{/each}
+			<div class="font-bold uppercase opacity-80 text-xs">
+				Country<em class="text-red-600 font-black"></em>
+			</div>
+			<select class="w-full rounded-md text-black mt-1" name="country">
+				<option value="IL">Israel</option>
+				<option value="PL">Palestine</option></select
+			>
 			<div>
 				<div class="mt-8">
 					<input
@@ -165,7 +191,12 @@
 					>
 				</div>
 				<div>
-					<input type="checkbox" class="mr-2" id="anonymous" />
+					<input
+						type="checkbox"
+						class="mr-2"
+						id="anonymous"
+						name="anonymous"
+					/>
 					<label for="anonymous" class="font-medium"
 						>Keep my donation anonymous</label
 					>
@@ -185,4 +216,4 @@
 		<h2 class="font-semibold mb-4">Payment</h2>
 		<div id="paypal"></div>
 	</div>
-</div>
+</form>
