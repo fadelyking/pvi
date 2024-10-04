@@ -45,8 +45,6 @@ export const actions = {
 		const formData = await request.formData();
 		const iso = formData.get("iso");
 
-		console.log("Clicked for country: ", iso);
-
 		// Check whether iso is valid 2 letter
 		if (String(iso).length !== 2 || !iso) {
 			return { status: 400, body: "Invalid ISO" };
