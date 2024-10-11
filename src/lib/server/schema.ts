@@ -13,12 +13,6 @@ export const clicksTable = pgTable("clicks", {
 	created_at: timestamp("created_at"),
 });
 
-export const progressTable = pgTable("progress", {
-	id: serial("id").primaryKey(),
-	progress: numeric("progress"),
-	last_updated: timestamp("last_updated").defaultNow(),
-});
-
 export const donorsTable = pgTable("donors", {
 	id: serial("id").primaryKey(),
 	name: text("name"),
@@ -29,11 +23,10 @@ export const donorsTable = pgTable("donors", {
 	message: text("message"),
 	receive_updates: boolean("receive_update"),
 	anonymous: boolean("anonymous"),
+	created_at: timestamp("created_at").defaultNow(),
 });
 
 export type InsertClick = typeof clicksTable.$inferInsert;
 export type SelectClick = typeof clicksTable.$inferSelect;
-export type InsertProgress = typeof progressTable.$inferInsert;
-export type SelectProgress = typeof progressTable.$inferSelect;
 export type InsertDonors = typeof donorsTable.$inferInsert;
 export type SelectDonors = typeof donorsTable.$inferSelect;
