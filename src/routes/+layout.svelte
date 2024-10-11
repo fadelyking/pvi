@@ -7,6 +7,7 @@
 	import ReviewCard from "$lib/components/ReviewCard.svelte";
 	import { ISOToName } from "$lib/helpers/ISOToName";
 	import Border from "$lib/components/Border.svelte";
+	import type { PageData } from "./$types";
 	// TODO: Donor stuff?
 	const reviews = [
 		{
@@ -48,20 +49,8 @@
 	];
 	let firstRow = reviews.slice(0, reviews.length / 2);
 	let secondRow = reviews.slice(reviews.length / 2);
-
+	export let data: PageData;
 	// TODO: Currently does not say versus who
-	const donors = [
-		{ name: "Fadel", to: "PS", amount: 40000 },
-		{ name: "Sara", to: "TR", amount: 25000 },
-		{ name: "Ali", to: "NL", amount: 15000 },
-		{ name: "Rachel", to: "IL", amount: 30000 },
-		{ name: "Khalid", to: "PS", amount: 20000 },
-		{ name: "Maya", to: "IL", amount: 10000 },
-		{ name: "Juan", to: "ES", amount: 35000 },
-		{ name: "Ling", to: "CN", amount: 22000 },
-		{ name: "Ramesh", to: "IN", amount: 18000 },
-		{ name: "Aisha", to: "EG", amount: 32000 },
-	];
 </script>
 
 <nav
@@ -69,7 +58,7 @@
 >
 	<ol class="flex flex-row justify-between animate-marquee">
 		<Marquee class="[--duration:45s]" pauseOnHover>
-			{#each donors as donor}
+			{#each data.donors as donor}
 				<li class="mx-12">
 					<strong>{donor.name}</strong> donated +<strong
 						class="text-green-400 saturate-50"
@@ -77,12 +66,12 @@
 					>
 					clicks for
 					<img
-						src="/flags/1x1/{donor.to.toLowerCase()}.svg"
+						src="/flags/1x1/{donor.country.toLowerCase()}.svg"
 						width={16}
 						height={16}
 						class="inline rounded-full mr-1"
-						alt="Flag of {ISOToName(donor.to)}"
-					/>{ISOToName(donor.to)}!
+						alt="Flag of {ISOToName(donor.country)}"
+					/>{ISOToName(donor.country)}!
 				</li>
 			{/each}
 		</Marquee>
@@ -134,7 +123,7 @@
 		border-radius: 10px;
 		left: 50%;
 		top: 50%;
-		transform: translate(-50%, -50%); 
+		transform: translate(-50%, -50%);
 	}
 
 	.box-glow {
@@ -159,11 +148,11 @@
 		/*border color, change middle color*/
 		background-image: conic-gradient(
 			rgba(0, 0, 0, 0),
-			#FF69B4,
-			#FFD700,
-			#00FF00,
-			#00FFFF,
-			#FF00FF,
+			#ff69b4,
+			#ffd700,
+			#00ff00,
+			#00ffff,
+			#ff00ff,
 			rgba(0, 0, 0, 0) 25%
 		);
 		/* change speed here */
