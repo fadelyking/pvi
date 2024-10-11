@@ -59,7 +59,7 @@
 						const details = await actions.order.capture();
 						console.log("Payment approved:", details);
 						const formElement = document.getElementById(
-							"donate-form"
+							"donate-form",
 						) as HTMLFormElement | null;
 						if (formElement) {
 							formElement.submit();
@@ -110,20 +110,23 @@
 
 	function handlePackageSelect() {
 		const selectedPkg = packages.find(
-			(pkg) => pkg.amount === selectedPackage
+			(pkg) => pkg.amount === selectedPackage,
 		);
 		selectedPrice = selectedPkg ? selectedPkg.price : packages[3].price;
 	}
 	handlePackageSelect();
+
+	import Border from "./Border.svelte";
 </script>
 
 <form
 	id="donate-form"
-	class="bg-[#0e696a] rounded-lg p-4 w-[400px] flex justify-center flex-col"
+	class="border relative group hover:border-white/50 transition border-white/20 rounded-lg p-4 flex flex-col"
 	method="POST"
 	action="?/donate"
 	use:enhance
 >
+	<Border size={150} duration={5} class="group-hover:opacity-100 opacity-0 transition" />
 	<h2 class="font-semibold text-xl">
 		Boost your clicks with a donation below.
 	</h2>
@@ -131,7 +134,10 @@
 	<br />
 	<br />
 	<div class="flex flex-col gap-2 my-3">
-		<select class="text-black rounded-md" bind:value={selectedPackage}>
+		<select
+			class="border border-white/20 rounded-md p-2 bg-black text-white"
+			bind:value={selectedPackage}
+		>
 			<option value={-1}>Select clicks</option>
 			{#each packages as pkg}
 				<option value={pkg.amount}
@@ -163,13 +169,13 @@
 
 					{#if field.isTextarea}
 						<textarea
-							class="w-full rounded-md text-black mt-1 h-24"
+							class="w-full mt-1 h-24 border border-white/20 rounded-md p-2 bg-black text-white"
 							name={field.name}
 							placeholder={field.placeholder}
 						></textarea>
 					{:else}
 						<input
-							class="w-full rounded-md text-black mt-1"
+							class="w-full border border-white/20 rounded-md p-2 bg-black text-white"
 							type={field.type}
 							name={field.name}
 							placeholder={field.placeholder}
@@ -185,7 +191,10 @@
 			<div class="font-bold uppercase opacity-80 text-xs">
 				Country<em class="text-red-600 font-black"></em>
 			</div>
-			<select class="w-full rounded-md text-black mt-1" name="country">
+			<select
+				class="w-full border border-white/20 rounded-md p-2 bg-black text-white"
+				name="country"
+			>
 				<option value="">Choose a country</option>
 
 				<option value={q1}>{ISOToName(q1)}</option>
@@ -215,18 +224,17 @@
 					>
 				</div>
 			</div>
-			<button
-				class="bg-[#02a676] mt-6 hover:saturate-150 transition p-2 px-4 rounded-md"
-				type="submit">Next</button
-			>
-			<button
-				class="text-white mt-2 font-semibold transition p-2 px-4 rounded-md"
-				type="submit">Previous</button
-			>
 		</div>
 	{/if}
-	<div class={selectedPackage >= -1 ? "" : "hidden"}>
-		<h2 class="font-semibold mb-4">Payment</h2>
-		<div id="paypal"></div>
+
+	<div
+		class="{selectedPackage >= 0
+			? ''
+			: 'opacity-50 cursor-not-allowed pointer-events-none'} flex items-center justify-center mt-4 bg-black/25 rounded-xl p-3 {selectedPackage >=
+		-1
+			? ''
+			: 'hidden'}"
+	>
+		<div id="paypal" class="mt-6"></div>
 	</div>
 </form>

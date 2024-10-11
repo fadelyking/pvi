@@ -5,7 +5,7 @@
 	export let donors;
 </script>
 
-<div class="bg-[#0e696a] rounded-lg p-4 h-full">
+<div class="border border-white/20 rounded-lg p-4 h-full">
 	<h2 class="font-semibold text-center text-xl mb-2">Leaderboards</h2>
 	<ul class="text-sm">
 		{#each donors as donor, i}

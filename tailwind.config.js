@@ -1,30 +1,37 @@
 import flowbitePlugin from "flowbite/plugin";
 
 export default {
-	content: [
-		"./src/**/*.{html,js,svelte,ts}",
-		"./node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}",
-	],
+	content: ['./src/**/*.{html,js,svelte,ts}'],
 	darkMode: "selector",
 	theme: {
 		extend: {
-			colors: {
-				// flowbite-svelte
-				primary: {
-					50: "#FFF5F2",
-					100: "#FFF1EE",
-					200: "#FFE4DE",
-					300: "#FFD5CC",
-					400: "#FFBCAD",
-					500: "#FE795D",
-					600: "#EF562F",
-					700: "#EB4F27",
-					800: "#CC4522",
-					900: "#A5371B",
+			animation: {
+				grid: "grid 15s linear infinite",
+				"border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
+				marquee: "marquee var(--duration) linear infinite",
+				"marquee-vertical": "marquee-vertical var(--duration) linear infinite",
+			},
+			keyframes: {
+				grid: {
+					"0%": { transform: "translateY(-50%)" },
+					"100%": { transform: "translateY(0)" },
+				},
+				"border-beam": {
+					"100%": {
+						"offset-distance": "100%",
+					},
+				},
+				marquee: {
+					from: { transform: "translateX(0)" },
+					to: { transform: "translateX(calc(-100% - var(--gap)))" },
+				},
+				"marquee-vertical": {
+					from: { transform: "translateY(0)" },
+					to: { transform: "translateY(calc(-100% - var(--gap)))" },
 				},
 			},
 		},
 	},
 
-	plugins: [flowbitePlugin],
+	plugins: [],
 };

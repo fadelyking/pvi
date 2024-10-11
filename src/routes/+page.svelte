@@ -13,7 +13,16 @@
 	$: totalClicked = data.clicks.length;
 </script>
 
-<div class="flex flex-col md:flex-row justify-between">
+<span
+	class="pointer-events-none z-10 whitespace-pre-wrap bg-gradient-to-b from-[#ffd319] via-[#ff2975] to-[#8c1eff] bg-clip-text text-center text-7xl font-bold leading-none tracking-tighter text-transparent"
+>
+	Countries at War
+</span>
+
+<br/>
+<br/>
+
+<div class="flex flex-col xl:flex-row justify-between">
 	<div class="">
 		<Leaderboard donors={data.donors} />
 	</div>
@@ -36,10 +45,15 @@
 						clicks={$optimistic_data.secondCountry.length}
 					/>
 				</div>
+
 				<p class="font-black text-4xl">
 					{Intl.NumberFormat(undefined).format(totalClicked)} clicks
 				</p>
 				<ProgressBar
+				q1={data.q1}
+				q2={data.q2}
+				q1Clicks={data.firstCountry.length}
+				q2Clicks={data.secondCountry.length}
 					progress={data.firstCountry.length -
 						$optimistic_data.secondCountry.length +
 						50}
