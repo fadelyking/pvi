@@ -1,13 +1,13 @@
 import { db } from "$lib/server/db";
 import { eq } from "drizzle-orm";
 
-import { clicksTable, donorsTable, progressTable } from "$lib/server/schema";
+import { clicksTable, donorsTable } from "$lib/server/schema";
 import type { PageServerLoad } from "./$types";
 import { ISOToName } from "$lib/helpers/ISOToName";
 
 export const load: PageServerLoad = async ({ url }) => {
 	// By default, we return Palestine and Israel if no query params are defined.
-	const firstCountry = url.searchParams.get("q1") ?? "PS";
+	const firstCountry = url.searchParams.get("q1") ?? "IR";
 	const secondCountry = url.searchParams.get("q2") ?? "IL";
 
 	// TODO: Get value between two country clicks
