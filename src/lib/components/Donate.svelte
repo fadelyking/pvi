@@ -51,7 +51,6 @@
 						});
 					},
 					onApprove: async (data, actions) => {
-						console.log("APPROVED PAYMENT");
 						if (!actions.order) {
 							console.error("Order is undefined");
 							return;
@@ -59,7 +58,7 @@
 						const details = await actions.order.capture();
 						console.log("Payment approved:", details);
 						const formElement = document.getElementById(
-							"donate-form",
+							"donate-form"
 						) as HTMLFormElement | null;
 						if (formElement) {
 							formElement.submit();
@@ -110,11 +109,11 @@
 
 	function handlePackageSelect() {
 		const selectedPkg = packages.find(
-			(pkg) => pkg.amount === selectedPackage,
+			(pkg) => pkg.amount === selectedPackage
 		);
-		selectedPrice = selectedPkg ? selectedPkg.price : packages[3].price;
+		selectedPrice = selectedPkg ? selectedPkg.price : 1;
 	}
-	handlePackageSelect();
+	$: handlePackageSelect();
 
 	import Border from "./Border.svelte";
 </script>
@@ -126,7 +125,11 @@
 	action="?/donate"
 	use:enhance
 >
-	<Border size={150} duration={5} class="group-hover:opacity-100 opacity-0 transition" />
+	<Border
+		size={150}
+		duration={5}
+		class="group-hover:opacity-100 opacity-0 transition"
+	/>
 	<h2 class="font-semibold text-xl">
 		Boost your clicks with a donation below.
 	</h2>
@@ -137,6 +140,7 @@
 		<select
 			class="border border-white/20 rounded-md p-2 bg-black text-white"
 			bind:value={selectedPackage}
+			on:change={handlePackageSelect}
 		>
 			<option value={-1}>Select clicks</option>
 			{#each packages as pkg}
