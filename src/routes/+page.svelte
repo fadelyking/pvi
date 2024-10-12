@@ -27,7 +27,6 @@
 		<Leaderboard donors={data.donors} />
 	</div>
 
-	<div class="">
 		<div class="grid grid-cols-1 gap-12 justify-center place-items-center">
 			<h2 class="text-4xl font-black">
 				{ISOToName($optimistic_data.q1)}
@@ -62,9 +61,8 @@
 				/>
 			</div>
 		</div>
-	</div>
 
-	<div class="flex justify-center">
+	<div class="flex justify-center xl:mt-0 mt-12">
 		<Donate q1={data.q1} q2={data.q2} />
 	</div>
 </div>
