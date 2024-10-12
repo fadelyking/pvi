@@ -46,6 +46,8 @@
 					/>
 				</div>
 
+				<span class="my-12"></span>
+
 				<p class="font-black text-4xl">
 					{Intl.NumberFormat(undefined).format(totalClicked)} clicks
 				</p>

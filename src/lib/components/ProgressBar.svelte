@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let progress: number;
+	// export let progress: number;
 	export let q1 = "";
 	export let q2 = "";
 

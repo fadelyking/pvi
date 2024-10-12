@@ -104,8 +104,6 @@
 	</div>
 {/if} -->
 
-
-
 <Particle
 	options={{
 		particle: particleName,
@@ -114,19 +112,33 @@
 	}}
 >
 	<form method="POST" action="?/click" use:enhance class="form relative">
-		<div class="absolute w-full h-full -z-10 blur-xl" style="background: {dominantColor};opacity: 0.8" />
+		<div
+			class="absolute w-full h-full -z-10 blur-xl"
+			style="background: {dominantColor};opacity: 0.8"
+		/>
 		<button
 			on:click={click}
-			class="border border-white/10 active:scale-90 transition hover:scale-105 p-6 rounded-xl"
-			style="background: linear-gradient(to bottom right, {dominantColor}, transparent);"
+			class="border border-white/10 bg-black/50 active:scale-90 transition hover:scale-105 p-6 rounded-xl"
+			style=""
 		>
-		
-			<div class="flex flex-col items-center">
+			<div class="flex flex-col items-center" style="">
 				<input type="hidden" name="iso" value={countryISO} />
 				{#if countryISO}
 					<img
 						bind:this={flagElement}
 						class="select-none rounded-xl"
+						style="
+								border:4px solid hotpink;25px:80px;  -webkit-mask:
+								conic-gradient(at 25px 25px,#0000 75%,#000 0)
+								0 0/calc(100% - 25px) calc(100% - 25px),
+								linear-gradient(#000 0 0) content-box;
+								border: 4px solid transparent;
+								border-top-color: red;
+								border-right-color: green;
+								border-bottom-color: blue;
+								border-left-color: yellow;
+								box-sizing: border-box;
+						"
 						id="flag"
 						width={128}
 						height={128}
@@ -152,7 +164,5 @@
                 /> -->
 			</div>
 		</button>
-		
 	</form>
-	
 </Particle>

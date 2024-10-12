@@ -28,26 +28,25 @@
 </div>
 <div class="rounded-lg h-full">
 	<h2 class="font-semibold text-center text-xl mb-2">Messages</h2>
-	<div class="border border-white/20 rounded-lg p-4 h-1/2 overflow-auto">
+	<div class="border border-white/20 rounded-lg p-2 h-1/2 overflow-auto">
 		<ul class="text-sm">
 			{#each donors as donor}
 				<li
-					class="odd:bg-black/15 p-1 rounded-md flex flex-col gap-3 items-start"
+					class="odd:bg-black/15 p-1 rounded-md flex flex-col gap-1 items-start"
 				>
-					<div class="flex gap-3 items-center">
+					<div class="flex gap-1 items-center">
 						<img
 							bind:this={flagElement}
 							class="select-none"
 							id="flag"
-							width={30}
-							height={30}
+							width={16}
+							height={16}
 							src="/flags/1x1/{donor.country.toLowerCase()}.svg"
 							alt="Flag"
 						/>
-
 						<strong>{donor.name}:</strong>
 					</div>
-					<span class="w-56">{donor.message}</span>
+					<span class="max-w-64">{donor.message}</span>
 				</li>
 			{/each}
 		</ul>
