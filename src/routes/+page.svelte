@@ -31,29 +31,30 @@
 	Countries at War
 </span>
 
-
 <div class="flex flex-col xl:flex-row justify-between">
 	<div class="xl:block hidden">
 		<Leaderboard donors={data.donors} />
 	</div>
 
-		<div class="grid grid-cols-1 gap-3 xl:gap-12 justify-center place-items-center">
-			<h2 class="text-4xl font-black">
-				{ISOToName($optimistic_data.q1)}
-				<em class="font-normal not-italic">vs.</em>
-				{ISOToName($optimistic_data.q2)}
-			</h2>
-			<div class="flex flex-col gap-3">
-				<div class="flex flex-row justify-between gap-3">
-					<Form
-						countryISO={$optimistic_data.q1}
-						clicks={$optimistic_data.firstCountry.length}
-					/>
-					<Form
-						countryISO={$optimistic_data.q2}
-						clicks={$optimistic_data.secondCountry.length}
-					/>
-				</div>
+	<div
+		class="grid grid-cols-1 gap-3 xl:gap-12 justify-center place-items-center"
+	>
+		<h2 class="text-4xl font-black">
+			{ISOToName($optimistic_data.q1)}
+			<em class="font-normal not-italic">vs.</em>
+			{ISOToName($optimistic_data.q2)}
+		</h2>
+		<div class="flex flex-col gap-3">
+			<div class="flex flex-row justify-between gap-3">
+				<Form
+					countryISO={$optimistic_data.q1}
+					clicks={$optimistic_data.firstCountry.length}
+				/>
+				<Form
+					countryISO={$optimistic_data.q2}
+					clicks={$optimistic_data.secondCountry.length}
+				/>
+			</div>
 
 			<span class="my-12"></span>
 
@@ -63,8 +64,8 @@
 			<ProgressBar
 				q1={data.q1}
 				q2={data.q2}
-				q1Clicks={data.firstCountry.length}
-				q2Clicks={data.secondCountry.length}
+				q1Clicks={totalFirstCountry}
+				q2Clicks={totalSecondCountry}
 				progress={totalFirstCountry - totalSecondCountry + 50}
 			/>
 		</div>
