@@ -54,7 +54,7 @@
 </script>
 
 <nav
-	class="border border-b-white/10 border-transparent p-1 animate-marquee text-center text-sm"
+	class="border border-b-white/10 border-transparent p-1 animate-marquee text-center text-sm hidden xl:block"
 >
 	<ol class="flex flex-row justify-between animate-marquee">
 		<Marquee class="[--duration:45s]" pauseOnHover>
@@ -79,11 +79,11 @@
 </nav>
 
 <div
-	class="mx-auto relative container my-12 bg-black p-12 rounded-xl box shadow-[0px_0px_50px_50px_#030303]"
+	class="mx-auto relative container my-3 xl:my-12 bg-black p-3 xl:p-12 rounded-xl xl:box shadow-[0px_0px_50px_50px_#030303]"
 >
 	<!-- <Border borderWidth={1} size={800} anchor={90} /> -->
 	<!-- <div class="bg-gradient-to-br from-[#ffa6c8] via-[#e5a4ff] blur-md to-[#9fe5da] w-full h-full absolute -z-10 left-0 top-0 animate-border-beam" /> -->
-	<main class="p-3 mx-auto container">
+	<main class="p-0 xl:p-3 mx-auto container">
 		<slot />
 	</main>
 
@@ -110,6 +110,7 @@
 		</div>
 	</footer>
 </div>
+
 <div class="cont">
 	<div class="griddy grid-flip"></div>
 </div>

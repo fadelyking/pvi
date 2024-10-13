@@ -22,7 +22,7 @@
 	</div>
 
 	<!-- Progress bar -->
-	<div class="bg-white/25 h-1 w-[15vw] relative">
+	<div class="bg-white/25 h-1 w-full xl:w-[15vw] relative">
 		<div
 			class={`bg-green-400 h-1`}
 			style="width: {(q1Clicks / (q1Clicks + q2Clicks)) * 100}%"

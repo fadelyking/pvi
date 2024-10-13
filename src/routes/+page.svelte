@@ -14,20 +14,18 @@
 </script>
 
 <span
-	class="pointer-events-none z-10 whitespace-pre-wrap bg-gradient-to-b from-[#ffd319] via-[#ff2975] to-[#8c1eff] bg-clip-text text-center text-7xl font-bold leading-none tracking-tighter text-transparent"
+	class="pointer-events-none xl:text-left z-10 whitespace-pre-wrap bg-gradient-to-b from-[#ffd319] via-[#ff2975] to-[#8c1eff] bg-clip-text text-center text-7xl font-bold leading-none tracking-tighter text-transparent"
 >
 	Countries at War
 </span>
 
-<br/>
-<br/>
 
 <div class="flex flex-col xl:flex-row justify-between">
-	<div class="">
+	<div class="xl:block hidden">
 		<Leaderboard donors={data.donors} />
 	</div>
 
-		<div class="grid grid-cols-1 gap-12 justify-center place-items-center">
+		<div class="grid grid-cols-1 gap-3 xl:gap-12 justify-center place-items-center">
 			<h2 class="text-4xl font-black">
 				{ISOToName($optimistic_data.q1)}
 				<em class="font-normal not-italic">vs.</em>
