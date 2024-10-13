@@ -37,5 +37,13 @@ export const load: PageServerLoad = async ({ url }) => {
 			.from(clicksTable)
 			.where(eq(clicksTable.country, secondCountry)),
 		donors: await db.select().from(donorsTable),
+		donorsFirstCountry: await db
+			.select()
+			.from(donorsTable)
+			.where(eq(donorsTable.country, firstCountry)),
+		donorsSecondCountry: await db
+			.select()
+			.from(donorsTable)
+			.where(eq(donorsTable.country, secondCountry)),
 	};
 };
