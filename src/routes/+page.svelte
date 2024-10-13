@@ -11,6 +11,18 @@
 	const { enhance, optimistic } = optimistikit<typeof data>();
 	$: optimistic_data = optimistic(data);
 	$: totalClicked = data.clicks.length;
+
+	const AmountFirstCountry = data.donorsFirstCountry
+		.map((donor: object) => parseInt(donor.amount))
+		.reduce((acc: number, amount: number) => acc + amount, 0);
+
+	const AmountSecondCountry = data.donorsSecondCountry
+		.map((donor: object) => parseInt(donor.amount))
+		.reduce((acc: number, amount: number) => acc + amount, 0);
+
+	$: totalFirstCountry = AmountFirstCountry + data.firstCountry.length;
+	$: totalSecondCountry = AmountSecondCountry + data.secondCountry.length;
+	$: generalTotal = totalFirstCountry + totalSecondCountry;
 </script>
 
 <span
@@ -43,22 +55,20 @@
 					/>
 				</div>
 
-				<span class="my-12"></span>
+			<span class="my-12"></span>
 
-				<p class="font-black text-4xl">
-					{Intl.NumberFormat(undefined).format(totalClicked)} clicks
-				</p>
-				<ProgressBar
+			<p class="font-black text-4xl">
+				{Intl.NumberFormat(undefined).format(generalTotal)} clicks
+			</p>
+			<ProgressBar
 				q1={data.q1}
 				q2={data.q2}
 				q1Clicks={data.firstCountry.length}
 				q2Clicks={data.secondCountry.length}
-					progress={data.firstCountry.length -
-						$optimistic_data.secondCountry.length +
-						50}
-				/>
-			</div>
+				progress={totalFirstCountry - totalSecondCountry + 50}
+			/>
 		</div>
+	</div>
 
 	<div class="flex justify-center xl:mt-0 mt-12">
 		<Donate q1={data.q1} q2={data.q2} />
